@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minhas Disciplinas - Portfólio Kathellyn Caroline</title>
+    <meta name="description" content="Disciplinas cursadas durante a formação em Desenvolvimento de Software Multiplataforma na FATEC Jessen Vidal">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #ec4899, #8b5cf6, #3b82f6);
+            animation: gradient 15s ease infinite;
+            background-size: 300% 300%;
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .glass-effect {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+            transform: translateY(0);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
+        }
+
+        .filter-btn {
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, #ec4899, #8b5cf6);
+            transform: scale(1.05);
+        }
+
+        .disciplina-card {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .disciplina-card.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+
+        .progress-ring-circle {
+            transition: stroke-dashoffset 0.35s;
+            transform-origin: 50% 50%;
+        }
+    </style>
+</head>
+<body class="min-h-screen gradient-bg">
+    <!-- Navigation Bar -->
+    <nav class="glass-effect fixed top-0 w-full z-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <!-- Logo/Brand -->
+                <div class="text-white font-bold text-xl">
+                    <a href="/" class="hover:text-pink-200 transition-colors duration-300 flex items-center">
+                        <i class="fas fa-code mr-2"></i>
+                        KC Portfolio
+                    </a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-6">
+                    <a href="/" class="text-white hover:text-pink-200 hover:bg-white/10 px-4 py-2 rounded-full transition-all duration-300">
+                        <i class="fas fa-home mr-2"></i>Início
+                    </a>
+                    <a href="/sobre" class="text-white hover:text-pink-200 hover:bg-white/10 px-4 py-2 rounded-full transition-all duration-300">
+                        <i class="fas fa-user mr-2"></i>Sobre
+                    </a>
+                    <a href="/disciplinas" class="text-white bg-white/20 px-4 py-2 rounded-full font-semibold transition-all duration-300">
+                        <i class="fas fa-book mr-2"></i>Disciplinas
+                    </a>
+                    <a href="/projetos" class="text-white hover:text-pink-200 hover:bg-white/10 px-4 py-2 rounded-full transition-all duration-300">
+                        <i class="fas fa-folder-open mr-2"></i>Projetos
+                    </a>
+                    <a href="/contato" class="text-white hover:text-pink-200 hover:bg-white/10 px-4 py-2 rounded-full transition-all duration-300">
+                        <i class="fas fa-envelope mr-2"></i>Contato
+                    </a>
+                    <a href="/dashboard" class="text-white hover:text-pink-200 hover:bg-white/10 px-4 py-2 rounded-full transition-all duration-300">
+    <i class="fas fa-chart-line mr-2"></i>Dashboard
+</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-white hover:text-pink-200">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-24 pb-12">
+        <div class="max-w-7xl mx-auto px-4">
+            
+            <!-- Page Header -->
+            <div class="text-center mb-16">
+                <h1 class="text-5xl md:text-6xl font-bold text-white mb-6">
+                    Minhas Disciplinas
+                </h1>
+                <div class="w-32 h-1 bg-gradient-to-r from-pink-400 to-purple-500 mx-auto rounded-full mb-8"></div>
+                <p class="text-xl text-pink-100 max-w-4xl mx-auto leading-relaxed">
+                    <strong class="text-white"><%= total %> disciplinas</strong> cursadas e em andamento durante minha 
+                    formação em Desenvolvimento de Software Multiplataforma
+                </p>
+            </div>
+
+            <!-- Statistics Dashboard -->
+            <div class="glass-effect p-8 rounded-2xl mb-12">
+                <h2 class="text-3xl font-bold text-white text-center mb-8">
+                    <i class="fas fa-chart-line mr-3 text-yellow-400"></i>
+                    Estatísticas Acadêmicas
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <!-- Total Disciplines -->
+                    <div class="text-center bg-white/5 p-6 rounded-xl card-hover">
+                        <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-pink-400 to-pink-600 flex items-center justify-center">
+                            <i class="fas fa-book text-white text-2xl"></i>
+                        </div>
+                        <div class="text-4xl font-bold text-pink-300 mb-2"><%= total %></div>
+                        <p class="text-pink-100 font-semibold">Total de Disciplinas</p>
+                    </div>
+
+                    <!-- Completed -->
+                    <div class="text-center bg-white/5 p-6 rounded-xl card-hover">
+                        <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-green-400 to-green-600 flex items-center justify-center">
+                            <i class="fas fa-check-circle text-white text-2xl"></i>
+                        </div>
+                        <div class="text-4xl font-bold text-green-300 mb-2"><%= Math.ceil(total * 0.7) %></div>
+                        <p class="text-green-100 font-semibold">Concluídas</p>
+                    </div>
+
+                    <!-- In Progress -->
+                    <div class="text-center bg-white/5 p-6 rounded-xl card-hover">
+                        <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 flex items-center justify-center">
+                            <i class="fas fa-clock text-white text-2xl"></i>
+                        </div>
+                        <div class="text-4xl font-bold text-yellow-300 mb-2"><%= Math.floor(total * 0.3) %></div>
+                        <p class="text-yellow-100 font-semibold">Em Andamento</p>
+                    </div>
+
+                    <!-- Success Rate -->
+                    <div class="text-center bg-white/5 p-6 rounded-xl card-hover">
+                        <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-purple-400 to-purple-600 flex items-center justify-center">
+                            <i class="fas fa-trophy text-white text-2xl"></i>
+                        </div>
+                        <div class="text-4xl font-bold text-purple-300 mb-2">95%</div>
+                        <p class="text-purple-100 font-semibold">Taxa de Sucesso</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="text-center mb-12">
+                <div class="inline-flex bg-white/10 p-2 rounded-full backdrop-blur-lg">
+                    <button onclick="filterDisciplinas('all')" 
+                            class="filter-btn active px-6 py-3 rounded-full text-white font-semibold transition-all duration-300">
+                        <i class="fas fa-th mr-2"></i>Todas (<%= total %>)
+                    </button>
+                    <button onclick="filterDisciplinas('desenvolvimento')" 
+                            class="filter-btn px-6 py-3 rounded-full text-white font-semibold transition-all duration-300">
+                        <i class="fas fa-code mr-2"></i>Desenvolvimento
+                    </button>
+                    <button onclick="filterDisciplinas('dados')" 
+                            class="filter-btn px-6 py-3 rounded-full text-white font-semibold transition-all duration-300">
+                        <i class="fas fa-database mr-2"></i>Dados
+                    </button>
+                    <button onclick="filterDisciplinas('fundamentos')" 
+                            class="filter-btn px-6 py-3 rounded-full text-white font-semibold transition-all duration-300">
+                        <i class="fas fa-calculator mr-2"></i>Fundamentos
+                    </button>
+                    <button onclick="filterDisciplinas('gestao')" 
+                            class="filter-btn px-6 py-3 rounded-full text-white font-semibold transition-all duration-300">
+                        <i class="fas fa-tasks mr-2"></i>Gestão
+                    </button>
+                </div>
+            </div>
+
+            <!-- Disciplines Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-16">
+                <% disciplinas.forEach((disciplina, index) => { 
+                    // Determinar categoria da disciplina
+                    let categoria = '';
+                    let icon = 'fas fa-book';
+                    let gradientColors = 'from-gray-400 to-gray-600';
+                    
+                    if (disciplina.includes('Desenvolvimento') || disciplina.includes('Web') || disciplina.includes('Programação') || disciplina.includes('Engenharia')) {
+                        categoria = 'desenvolvimento';
+                        icon = 'fas fa-code';
+                        gradientColors = 'from-blue-400 to-blue-600';
+                    } else if (disciplina.includes('Banco') || disciplina.includes('Dados') || disciplina.includes('Estatística')) {
+                        categoria = 'dados';
+                        icon = 'fas fa-database';
+                        gradientColors = 'from-green-400 to-green-600';
+                    } else if (disciplina.includes('Matemática') || disciplina.includes('Álgebra') || disciplina.includes('Algoritmos') || disciplina.includes('Sistemas') || disciplina.includes('Estrutura')) {
+                        categoria = 'fundamentos';
+                        icon = 'fas fa-calculator';
+                        gradientColors = 'from-purple-400 to-purple-600';
+                    } else if (disciplina.includes('Gestão') || disciplina.includes('Projetos') || disciplina.includes('Ágil')) {
+                        categoria = 'gestao';
+                        icon = 'fas fa-tasks';
+                        gradientColors = 'from-pink-400 to-pink-600';
+                    } else if (disciplina.includes('Design')) {
+                        categoria = 'desenvolvimento';
+                        icon = 'fas fa-palette';
+                        gradientColors = 'from-orange-400 to-red-500';
+                    } else if (disciplina.includes('Móveis') || disciplina.includes('Dispositivos')) {
+                        categoria = 'desenvolvimento';
+                        icon = 'fas fa-mobile-alt';
+                        gradientColors = 'from-indigo-400 to-indigo-600';
+                    } else if (disciplina.includes('IoT') || disciplina.includes('Coisas')) {
+                        categoria = 'desenvolvimento';
+                        icon = 'fas fa-wifi';
+                        gradientColors = 'from-teal-400 to-teal-600';
+                    } else if (disciplina.includes('Interação') || disciplina.includes('Humano')) {
+                        categoria = 'desenvolvimento';
+                        icon = 'fas fa-user-friends';
+                        gradientColors = 'from-cyan-400 to-cyan-600';
+                    }
+                    
+                    // Status aleatório para demonstração
+                    const isCompleted = Math.random() > 0.3;
+                    const progress = isCompleted ? 100 : Math.floor(Math.random() * 40) + 40;
+                %>
+                    <div class="disciplina-card card-hover glass-effect rounded-2xl overflow-hidden <%= categoria %>" 
+                         style="animation-delay: <%= index * 0.05 %>s;" data-category="<%= categoria %>">
+                        
+                        <!-- Card Header -->
+                        <div class="p-6 text-center">
+                            <!-- Subject Icon -->
+                            <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-r <%= gradientColors %> flex items-center justify-center text-3xl text-white shadow-lg transform hover:scale-110 transition-transform duration-300">
+                                <i class="<%= icon %>"></i>
+                            </div>
+
+                            <!-- Subject Name -->
+                            <h3 class="text-lg font-bold text-white mb-3 leading-tight min-h-[3.5rem] flex items-center justify-center">
+                                <%= disciplina %>
+                            </h3>
+
+                            <!-- Status Badge -->
+                            <div class="mb-4">
+                                <% if (isCompleted) { %>
+                                    <span class="inline-block bg-green-500/20 text-green-300 px-4 py-2 rounded-full text-sm font-semibold border border-green-400/30">
+                                        <i class="fas fa-check-circle mr-2"></i>Concluída
+                                    </span>
+                                <% } else { %>
+                                    <span class="inline-block bg-yellow-500/20 text-yellow-300 px-4 py-2 rounded-full text-sm font-semibold border border-yellow-400/30">
+                                        <i class="fas fa-clock mr-2"></i>Em Andamento
+                                    </span>
+                                <% } %>
+                            </div>
+                        </div>
+
+                        <!-- Progress Section -->
+                        <div class="px-6 pb-6">
+                            <% if (isCompleted) { %>
+                                <!-- Completed Course Info -->
+                                <div class="text-center bg-green-500/10 p-4 rounded-xl">
+                                    <div class="text-green-300 text-2xl mb-2">
+                                        <i class="fas fa-medal"></i>
+                                    </div>
+                                    <p class="text-green-200 text-sm font-medium">
+                                        Disciplina concluída com sucesso
+                                    </p>
+                                </div>
+                            <% } else { %>
+                                <!-- Progress Bar for Ongoing -->
+                                <div class="bg-white/5 p-4 rounded-xl">
+                                    <div class="flex justify-between items-center mb-3">
+                                        <span class="text-yellow-200 text-sm font-medium">Progresso</span>
+                                        <span class="text-yellow-300 font-bold"><%= progress %>%</span>
+                                    </div>
+                                    
+                                    <!-- Circular Progress -->
+                                    <div class="flex justify-center">
+                                        <div class="relative w-16 h-16">
+                                            <svg class="progress-ring w-16 h-16" viewBox="0 0 50 50">
+                                                <circle 
+                                                    class="progress-ring-circle stroke-current text-white/20" 
+                                                    stroke-width="4" 
+                                                    fill="transparent" 
+                                                    r="21" 
+                                                    cx="25" 
+                                                    cy="25"/>
+                                                <circle 
+                                                    class="progress-ring-circle stroke-current text-yellow-400" 
+                                                    stroke-width="4" 
+                                                    fill="transparent" 
+                                                    r="21" 
+                                                    cx="25" 
+                                                    cy="25"
+                                                    stroke-dasharray="<%= 2 * Math.PI * 21 %>"
+                                                    stroke-dashoffset="<%= 2 * Math.PI * 21 * (1 - progress/100) %>"
+                                                    stroke-linecap="round"/>
+                                            </svg>
+                                            <div class="absolute inset-0 flex items-center justify-center">
+                                                <span class="text-white text-xs font-bold"><%= progress %>%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <p class="text-yellow-200 text-xs text-center mt-2">
+                                        Previsão de conclusão: <strong class="text-yellow-100">2025</strong>
+                                    </p>
+                                </div>
+                            <% } %>
+                        </div>
+
+                        <!-- Additional Info -->
+                        <div class="px-6 pb-6">
+                            <div class="flex justify-between items-center text-xs text-white/60">
+                                <span>
+                                    <i class="fas fa-calendar mr-1"></i>
+                                    Semestre: <%= Math.ceil((index + 1) / 4) %>
+                                </span>
+                                <span>
+                                    <i class="fas fa-star mr-1"></i>
+                                    Carga: <%= Math.floor(Math.random() * 40) + 40 %>h
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+
+            <!-- Academic Journey Summary -->
+            <div class="text-center mb-16">
+                <div class="glass-effect p-12 rounded-2xl max-w-6xl mx-auto">
+                    <h3 class="text-4xl font-bold text-white mb-8">
+                        <i class="fas fa-graduation-cap mr-3 text-yellow-400"></i>
+                        Minha Jornada de Aprendizado
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                        <!-- Left Content -->
+                        <div class="text-left">
+                            <p class="text-xl text-pink-100 mb-6 leading-relaxed">
+                                Durante minha formação em <strong class="text-white"><%= disciplinas.length %> disciplinas</strong>, 
+                                desenvolvi uma base sólida e abrangente em diversas áreas da computação. 
+                            </p>
+                            
+                            <div class="space-y-4">
+                                <div class="flex items-center">
+                                    <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                                    <span class="text-pink-100">Fundamentos matemáticos e algorítmicos</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                                    <span class="text-pink-100">Desenvolvimento web e mobile moderno</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                                    <span class="text-pink-100">Gestão de dados e bancos relacionais/NoSQL</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                                    <span class="text-pink-100">Metodologias ágeis e gestão de projetos</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                                    <span class="text-pink-100">Tecnologias emergentes como IoT e IA</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Content - Skills Breakdown -->
+                        <div class="space-y-4">
+                            <div class="bg-white/5 p-4 rounded-xl">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-blue-300 font-semibold">Desenvolvimento</span>
+                                    <span class="text-blue-200">40%</span>
+                                </div>
+                                <div class="w-full bg-white/10 rounded-full h-3">
+                                    <div class="bg-gradient-to-r from-blue-400 to-blue-600 h-3 rounded-full" style="width: 40%"></div>
+                                </div>
+                            </div>
+
+                            <div class="bg-white/5 p-4 rounded-xl">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-green-300 font-semibold">Dados & BD</span>
+                                    <span class="text-green-200">20%</span>
+                                </div>
+                                <div class="w-full bg-white/10 rounded-full h-3">
+                                    <div class="bg-gradient-to-r from-green-400 to-green-600 h-3 rounded-full" style="width: 20%"></div>
+                                </div>
+                            </div>
+
+                            <div class="bg-white/5 p-4 rounded-xl">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-purple-300 font-semibold">Fundamentos</span>
+                                    <span class="text-purple-200">25%</span>
+                                </div>
+                                <div class="w-full bg-white/10 rounded-full h-3">
+                                    <div class="bg-gradient-to-r from-purple-400 to-purple-600 h-3 rounded-full" style="width: 25%"></div>
+                                </div>
+                            </div>
+
+                            <div class="bg-white/5 p-4 rounded-xl">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-pink-300 font-semibold">Gestão</span>
+                                    <span class="text-pink-200">15%</span>
+                                </div>
+                                <div class="w-full bg-white/10 rounded-full h-3">
+                                    <div class="bg-gradient-to-r from-pink-400 to-pink-600 h-3 rounded-full" style="width: 15%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Call to Action -->
+                    <div class="flex flex-col md:flex-row gap-4 justify-center mt-12">
+                        <a href="/projetos" 
+                           class="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 px-8 py-4 rounded-full text-white font-bold transition-all duration-300 transform hover:scale-105 shadow-lg">
+                            <i class="fas fa-rocket mr-2"></i>Ver Como Apliquei o Conhecimento
+                        </a>
+                        <a href="/sobre" 
+                           class="glass-effect hover:bg-white/20 px-8 py-4 rounded-full text-white font-bold transition-all duration-300 transform hover:scale-105">
+                            <i class="fas fa-user mr-2"></i>Saber Mais Sobre Mim
+                        </a>
+                        <a href="/contato" 
+                           class="glass-effect hover:bg-white/20 px-8 py-4 rounded-full text-white font-bold transition-all duration-300 transform hover:scale-105">
+                            <i class="fas fa-handshake mr-2"></i>Vamos Conversar
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass-effect py-8">
+        <div class="container mx-auto px-4 text-center text-white">
+            <p>&copy; 2025 Kathellyn Caroline Alves dos Santos. Todos os direitos reservados.</p>
+            <p class="text-sm text-pink-200 mt-2">
+                Desenvolvido com <i class="fas fa-heart text-red-400"></i> usando Node.js, Express e EJS
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Filter functionality
+        function filterDisciplinas(category) {
+            const cards = document.querySelectorAll('.disciplina-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            // Update active button
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+                btn.style.transform = 'scale(1)';
+            });
+            event.target.classList.add('active');
+            event.target.style.transform = 'scale(1.05)';
+            
+            // Filter cards with animation
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                
+                setTimeout(() => {
+                    if (category === 'all' || card.dataset.category === category) {
+                        card.style.display = 'block';
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, 50);
+                    } else {
+                        card.style.display = 'none';
+                    }
+                }, index * 20);
+            });
+        }
+
+        // Initialize cards animation
+        function initializeCardsAnimation() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.disciplina-card').forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                card.style.transitionDelay = `${index * 0.05}s`;
+                observer.observe(card);
+            });
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCardsAnimation();
+            
+            // Set all cards as visible initially
+            setTimeout(() => {
+                document.querySelectorAll('.disciplina-card').forEach(card => {
+                    card.classList.add('show');
+                });
+            }, 100);
+        });
+
+        // Enhanced hover effects
+        document.querySelectorAll('.card-hover').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Progress ring animation
+        function animateProgressRings() {
+            const progressRings = document.querySelectorAll('.progress-ring-circle:nth-child(2)');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const circle = entry.target;
+                        const offset = circle.style.strokeDashoffset;
+                        circle.style.strokeDashoffset = circle.getAttribute('stroke-dasharray');
+                        
+                        setTimeout(() => {
+                            circle.style.strokeDashoffset = offset;
+                        }, 200);
+                    }
+                });
+            });
+
+            progressRings.forEach(ring => {
+                observer.observe(ring);
+            });
+        }
+
+        // Initialize progress animations
+        animateProgressRings();
+    </script>
+</body>
+</html>

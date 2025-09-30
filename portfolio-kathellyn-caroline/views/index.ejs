@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline'; font-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data:; connect-src 'self' http://localhost:* ws://localhost:*;">
+    <title>Portfólio - <%= nome %></title>
+    <meta name="description" content="Portfólio acadêmico de <%= nome %> - Estudante de Desenvolvimento de Software Multiplataforma na FATEC Jessen Vidal">
+    <meta name="author" content="<%= nome %>">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #ec4899, #8b5cf6, #3b82f6);
+            animation: gradient 15s ease infinite;
+            background-size: 300% 300%;
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .glass-effect {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .typing {
+            overflow: hidden;
+            border-right: .15em solid rgba(255,255,255,.75);
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: .15em;
+            animation: typing 3.5s steps(30, end), blink-caret .5s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: rgba(255,255,255,.75) }
+        }
+    </style>
+</head>
+<body class="min-h-screen gradient-bg">
+    <!-- Navigation Bar -->
+    <nav class="glass-effect fixed top-0 w-full z-50 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <!-- Logo/Brand -->
+                <div class="text-white font-bold text-xl">
+                    <a href="/" class="hover:text-pink-200 transition-colors duration-300 flex items-center">
+                        <i class="fas fa-code mr-2"></i>
+                        KC Portfolio
+                    </a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-6">
+                    <a href="/" class="text-white bg-white/20 px-4 py-2 rounded-full font-semibold transition-all duration-300">
+                        <i class="fas fa-home mr-2"></i>Início
+                    </a>
+                    <a href="/sobre" class="text-white hover:text-pink-200 hover:bg-white/10 px-4 py-2 rounded-full transition-all duration-300">
+                        <i class="fas fa-user mr-2"></i>Sobre
+                    </a>
+                    <a href="/disciplinas" class="text-white hover:text-pink-200 hover:bg-white/10 px-4 py-2 rounded-full transition-all duration-300">
+                        <i class="fas fa-book mr-2"></i>Disciplinas
+                    </a>
+                    <a href="/projetos" class="text-white hover:text-pink-200 hover:bg-white/10 px-4 py-2 rounded-full transition-all duration-300">
+                        <i class="fas fa-folder-open mr-2"></i>Projetos
+                    </a>
+                    <a href="/contato" class="text-white hover:text-pink-200 hover:bg-white/10 px-4 py-2 rounded-full transition-all duration-300">
+                        <i class="fas fa-envelope mr-2"></i>Contato
+                    </a>
+                    <a href="/dashboard" class="text-white hover:text-pink-200 hover:bg-white/10 px-4 py-2 rounded-full transition-all duration-300">
+    <i class="fas fa-chart-line mr-2"></i>Dashboard
+</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-white hover:text-pink-200">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Navigation Menu -->
+            <div id="mobile-menu" class="hidden md:hidden pb-4">
+                <div class="flex flex-col space-y-2">
+                    <a href="/" class="text-white bg-white/20 px-4 py-3 rounded-lg font-semibold">
+                        <i class="fas fa-home mr-2"></i>Início
+                    </a>
+                    <a href="/sobre" class="text-white hover:bg-white/10 px-4 py-3 rounded-lg transition-all duration-300">
+                        <i class="fas fa-user mr-2"></i>Sobre
+                    </a>
+                    <a href="/disciplinas" class="text-white hover:bg-white/10 px-4 py-3 rounded-lg transition-all duration-300">
+                        <i class="fas fa-book mr-2"></i>Disciplinas
+                    </a>
+                    <a href="/projetos" class="text-white hover:bg-white/10 px-4 py-3 rounded-lg transition-all duration-300">
+                        <i class="fas fa-folder-open mr-2"></i>Projetos
+                    </a>
+                    <a href="/contato" class="text-white hover:bg-white/10 px-4 py-3 rounded-lg transition-all duration-300">
+                        <i class="fas fa-envelope mr-2"></i>Contato
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-24">
+        <!-- Hero Section -->
+        <section class="min-h-screen flex items-center justify-center px-4">
+            <div class="text-center text-white max-w-6xl mx-auto">
+                <!-- Profile Avatar -->
+<!-- Avatar/Profile Image -->
+<div class="mb-8">
+    <div class="w-40 h-40 mx-auto rounded-full overflow-hidden shadow-2xl transform hover:scale-110 transition-transform duration-300 border-4 border-white/30">
+        <img src="/images/perfil.jfif" 
+             alt="Kathellyn Caroline" 
+             class="w-full h-full object-cover">
+    </div>
+</div>
+
+                <!-- Welcome Message -->
+                <h1 class="text-4xl md:text-6xl lg:text-8xl font-bold mb-6">
+                    <span class="block mb-4">Bem-vindo ao meu</span>
+                    <span class="bg-gradient-to-r from-pink-300 via-purple-300 to-blue-300 bg-clip-text text-transparent typing">
+                        Portfólio
+                    </span>
+                </h1>
+                
+                <!-- Student Name Presentation -->
+                <div class="mb-8">
+                    <p class="text-2xl md:text-3xl text-pink-100 mb-4">
+                        Eu sou
+                    </p>
+                    <h2 class="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
+                        <%= nome %>
+                    </h2>
+                </div>
+
+                <!-- Description -->
+                <p class="text-xl md:text-2xl text-pink-100 mb-12 leading-relaxed max-w-4xl mx-auto">
+                    Estudante de <strong class="text-white">Desenvolvimento de Software Multiplataforma</strong><br>
+                    na <strong class="text-white">FATEC Jessen Vidal</strong><br>
+                    <span class="text-lg">Apaixonada por tecnologia, inovação e desenvolvimento de soluções</span>
+                </p>
+
+                <!-- Call to Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
+                    <a href="/sobre" 
+                       class="glass-effect px-8 py-4 rounded-full text-white font-bold hover:bg-white/20 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                        <i class="fas fa-user mr-2"></i>Conheça mais sobre mim
+                    </a>
+                    <a href="/projetos" 
+                       class="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 px-8 py-4 rounded-full text-white font-bold transition-all duration-300 transform hover:scale-105 shadow-lg">
+                        <i class="fas fa-rocket mr-2"></i>Ver meus projetos
+                    </a>
+                </div>
+
+                <!-- Technology Icons -->
+                <div class="flex justify-center space-x-8 mb-8">
+                    <div class="text-5xl text-white/60 hover:text-white hover:scale-125 transition-all duration-300 cursor-pointer" title="Python">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <div class="text-5xl text-white/60 hover:text-white hover:scale-125 transition-all duration-300 cursor-pointer" title="Java">
+                        <i class="fab fa-java"></i>
+                    </div>
+                    <div class="text-5xl text-white/60 hover:text-white hover:scale-125 transition-all duration-300 cursor-pointer" title="JavaScript">
+                        <i class="fab fa-js-square"></i>
+                    </div>
+                    <div class="text-5xl text-white/60 hover:text-white hover:scale-125 transition-all duration-300 cursor-pointer" title="React">
+                        <i class="fab fa-react"></i>
+                    </div>
+                    <div class="text-5xl text-white/60 hover:text-white hover:scale-125 transition-all duration-300 cursor-pointer" title="Node.js">
+                        <i class="fab fa-node-js"></i>
+                    </div>
+                </div>
+
+                <!-- Scroll Indicator -->
+                <div class="animate-bounce">
+                    <i class="fas fa-chevron-down text-3xl text-white/60"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Stats Section -->
+        <section class="py-20 px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="glass-effect rounded-2xl p-8 md:p-12">
+                    <h3 class="text-4xl font-bold text-white text-center mb-12">
+                        Minha Jornada Acadêmica
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Disciplinas -->
+                        <div class="text-center group">
+                            <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-r from-pink-400 to-pink-600 flex items-center justify-center text-3xl text-white group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="text-5xl font-bold text-pink-300 mb-2">23</div>
+                            <p class="text-xl text-pink-100 font-semibold">Disciplinas Cursadas</p>
+                            <p class="text-pink-200 mt-2">Conhecimento sólido em diversas áreas</p>
+                        </div>
+
+                        <!-- Projetos -->
+                        <div class="text-center group">
+                            <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-r from-purple-400 to-purple-600 flex items-center justify-center text-3xl text-white group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div class="text-5xl font-bold text-purple-300 mb-2">4</div>
+                            <p class="text-xl text-purple-100 font-semibold">Projetos Concluídos</p>
+                            <p class="text-purple-200 mt-2">Aplicações práticas e funcionais</p>
+                        </div>
+
+                        <!-- Tecnologias -->
+                        <div class="text-center group">
+                            <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-r from-blue-400 to-blue-600 flex items-center justify-center text-3xl text-white group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-tools"></i>
+                            </div>
+                            <div class="text-5xl font-bold text-blue-300 mb-2">11</div>
+                            <p class="text-xl text-blue-100 font-semibold">Tecnologias Dominadas</p>
+                            <p class="text-blue-200 mt-2">Stack completa de desenvolvimento</p>
+                        </div>
+                    </div>
+
+                    <!-- CTA Section -->
+                    <div class="text-center mt-12">
+                        <p class="text-xl text-white mb-6">
+                            Explore meu portfólio e descubra minha evolução técnica
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                            <a href="/disciplinas" class="glass-effect px-6 py-3 rounded-full text-white font-semibold hover:bg-white/20 transition-all duration-300">
+                                <i class="fas fa-book mr-2"></i>Ver Disciplinas
+                            </a>
+                            <a href="/contato" class="glass-effect px-6 py-3 rounded-full text-white font-semibold hover:bg-white/20 transition-all duration-300">
+                                <i class="fas fa-handshake mr-2"></i>Vamos Conversar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass-effect py-12 mt-20">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+                <!-- About -->
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-4">Sobre o Portfólio</h4>
+                    <p class="text-pink-200 text-sm leading-relaxed">
+                        Portfólio acadêmico desenvolvido para a disciplina de 
+                        Desenvolvimento Web II da FATEC Jessen Vidal.
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-4">Links Rápidos</h4>
+                    <div class="flex flex-col space-y-2">
+                        <a href="/sobre" class="text-pink-200 hover:text-white transition-colors">Sobre Mim</a>
+                        <a href="/disciplinas" class="text-pink-200 hover:text-white transition-colors">Disciplinas</a>
+                        <a href="/projetos" class="text-pink-200 hover:text-white transition-colors">Projetos</a>
+                        <a href="/contato" class="text-pink-200 hover:text-white transition-colors">Contato</a>
+                    </div>
+                </div>
+
+                <!-- Contact Info -->
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-4">Contato</h4>
+                    <div class="flex flex-col space-y-2">
+                        <p class="text-pink-200 text-sm">kathellyn.carolineas@gmail.com</p>
+                        <p class="text-pink-200 text-sm">+55 (12) 98805-4039</p>
+                        <div class="flex justify-center md:justify-start space-x-4 mt-4">
+                            <a href="https://linkedin.com/in/kathellyn-caroline-a562101b9" target="_blank" 
+                               class="text-pink-200 hover:text-white text-xl transition-colors">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a href="https://github.com/kathellyn-caroline" target="_blank" 
+                               class="text-pink-200 hover:text-white text-xl transition-colors">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="border-t border-white/10 mt-8 pt-8 text-center">
+                <p class="text-pink-200 text-sm">
+                    &copy; 2025 <%= nome %>. Todos os direitos reservados.
+                </p>
+                <p class="text-pink-300 text-xs mt-2">
+                    Desenvolvido com <i class="fas fa-heart text-red-400"></i> usando Node.js, Express e EJS
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = this.querySelector('i');
+            
+            menu.classList.toggle('hidden');
+            
+            if (menu.classList.contains('hidden')) {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            } else {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Add animation classes when elements come into view
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.glass-effect').forEach(el => {
+            el.style.opacity = '0.8';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Dynamic navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(0, 0, 0, 0.3)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.1)';
+            }
+        });
+    </script>
+</body>
+</html>

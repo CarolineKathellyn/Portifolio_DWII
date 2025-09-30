@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline'; font-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data:; connect-src 'self' http://localhost:* ws://localhost:*;">
+    <title><%= titulo %> - Portfólio Kathellyn Caroline</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #ec4899, #8b5cf6, #3b82f6);
+        }
+        .glass-effect {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+<body class="min-h-screen gradient-bg">
+    <!-- Navigation -->
+    <nav class="glass-effect sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="text-white font-bold text-xl">
+                    <a href="/" class="hover:text-pink-200 transition-colors">KC Portfolio</a>
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="/" class="text-white hover:text-pink-200 transition-colors px-3 py-2 rounded-lg hover:bg-white/10">
+                        <i class="fas fa-home mr-2"></i>Início
+                    </a>
+                    <a href="/sobre" class="text-white hover:text-pink-200 transition-colors px-3 py-2 rounded-lg hover:bg-white/10">
+                        <i class="fas fa-user mr-2"></i>Sobre
+                    </a>
+                    <a href="/disciplinas" class="text-white hover:text-pink-200 transition-colors px-3 py-2 rounded-lg hover:bg-white/10">
+                        <i class="fas fa-book mr-2"></i>Disciplinas
+                    </a>
+                    <a href="/projetos" class="text-white hover:text-pink-200 transition-colors px-3 py-2 rounded-lg hover:bg-white/10">
+                        <i class="fas fa-code mr-2"></i>Projetos
+                    </a>
+                    <a href="/contato" class="text-white hover:text-pink-200 transition-colors px-3 py-2 rounded-lg hover:bg-white/10">
+                        <i class="fas fa-envelope mr-2"></i>Contato
+                    </a>
+                    <a href="/dashboard" class="text-white hover:text-pink-200 hover:bg-white/10 px-4 py-2 rounded-full transition-all duration-300">
+    <i class="fas fa-chart-line mr-2"></i>Dashboard
+</a>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-white hover:text-pink-200">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="hidden md:hidden pb-4">
+                <div class="flex flex-col space-y-2">
+                    <a href="/" class="text-white hover:text-pink-200 transition-colors px-3 py-2 rounded-lg hover:bg-white/10">
+                        <i class="fas fa-home mr-2"></i>Início
+                    </a>
+                    <a href="/sobre" class="text-white hover:text-pink-200 transition-colors px-3 py-2 rounded-lg hover:bg-white/10">
+                        <i class="fas fa-user mr-2"></i>Sobre
+                    </a>
+                    <a href="/disciplinas" class="text-white hover:text-pink-200 transition-colors px-3 py-2 rounded-lg hover:bg-white/10">
+                        <i class="fas fa-book mr-2"></i>Disciplinas
+                    </a>
+                    <a href="/projetos" class="text-white hover:text-pink-200 transition-colors px-3 py-2 rounded-lg hover:bg-white/10">
+                        <i class="fas fa-code mr-2"></i>Projetos
+                    </a>
+                    <a href="/contato" class="text-white hover:text-pink-200 transition-colors px-3 py-2 rounded-lg hover:bg-white/10">
+                        <i class="fas fa-envelope mr-2"></i>Contato
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <%- body %>
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass-effect mt-16 py-8">
+        <div class="container mx-auto px-4 text-center text-white">
+            <p>&copy; 2025 Kathellyn Caroline Alves dos Santos. Todos os direitos reservados.</p>
+            <p class="text-sm text-pink-200 mt-2">Desenvolvido com Node.js, Express e EJS</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

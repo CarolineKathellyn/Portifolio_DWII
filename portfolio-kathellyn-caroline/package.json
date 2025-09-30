@@ -1,0 +1,41 @@
+{
+  "name": "portfolio-kathellyn-caroline",
+  "version": "1.0.0",
+  "description": "Portfólio acadêmico de Kathellyn Caroline Alves dos Santos - Node.js com Express e EJS",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "build": "echo 'Build completed'",
+    "vercel-build": "echo vercel-build"
+  },
+  "keywords": [
+    "portfolio",
+    "nodejs",
+    "express",
+    "ejs",
+    "fatec",
+    "desenvolvimento-web"
+  ],
+  "author": {
+    "name": "Kathellyn Caroline Alves dos Santos",
+    "email": "kathellyn.carolineas@gmail.com",
+    "url": "https://linkedin.com/in/kathellyn-caroline-a562101b9"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kathellyn-caroline/portfolio-fatec.git"
+  },
+  "homepage": "https://portfolio-kathellyn-caroline.vercel.app"
+}

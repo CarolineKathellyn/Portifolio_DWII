@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato - Portfólio Kathellyn Caroline</title>
+    <meta name="description" content="Entre em contato com Kathellyn Caroline - Desenvolvedora de Software. Email, telefone, LinkedIn e estatísticas do portfólio.">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #ec4899, #8b5cf6, #3b82f6);
+            animation: gradient 15s ease infinite;
+            background-size: 300% 300%;
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .glass-effect {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .contact-card {
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transform: scale(1);
+        }
+
+        .contact-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .stat-card {
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .pulse-ring {
+            animation: pulseRing 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+        }
+
+        @keyframes pulseRing {
+            0% {
+                transform: scale(0.8);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.4);
+                opacity: 0;
+            }
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .tech-badge {
+            transition: all 0.3s ease;
+        }
+
+        .tech-badge:hover {
+            transform: scale(1.15) rotate(5deg);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .copy-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            transform: translateX(400px);
+            transition: transform 0.3s ease-out;
+            z-index: 9999;
+        }
+
+        .copy-notification.show {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body class="min-h-screen gradient-bg">
+    <!-- Copy Notification -->
+    <div id="copyNotification" class="copy-notification">
+        <div class="bg-green-500 text-white px-6 py-4 rounded-lg shadow-xl flex items-center">
+            <i class="fas fa-check-circle text-2xl mr-3"></i>
+            <span class="font-semibold">Copiado para a área de transferência!</span>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="glass-effect fixed top-0 w-full z-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <!-- Logo/Brand -->
+                <div class="text-white font-bold text-xl">
+                    <a href="/" class="hover:text-pink-200 transition-colors duration-300 flex items-center">
+                        <i class="fas fa-code mr-2"></i>
+                        KC Portfolio
+                    </a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-6">
+                    <a href="/" class="text-white hover:text-pink-200 hover:bg-white/10 px-4 py-2 rounded-full transition-all duration-300">
+                        <i class="fas fa-home mr-2"></i>Início
+                    </a>
+                    <a href="/sobre" class="text-white hover:text-pink-200 hover:bg-white/10 px-4 py-2 rounded-full transition-all duration-300">
+                        <i class="fas fa-user mr-2"></i>Sobre
+                    </a>
+                    <a href="/disciplinas" class="text-white hover:text-pink-200 hover:bg-white/10 px-4 py-2 rounded-full transition-all duration-300">
+                        <i class="fas fa-book mr-2"></i>Disciplinas
+                    </a>
+                    <a href="/projetos" class="text-white hover:text-pink-200 hover:bg-white/10 px-4 py-2 rounded-full transition-all duration-300">
+                        <i class="fas fa-folder-open mr-2"></i>Projetos
+                    </a>
+                    <a href="/contato" class="text-white bg-white/20 px-4 py-2 rounded-full font-semibold transition-all duration-300">
+                        <i class="fas fa-envelope mr-2"></i>Contato
+                    </a>
+                    <a href="/dashboard" class="text-white hover:text-pink-200 hover:bg-white/10 px-4 py-2 rounded-full transition-all duration-300">
+    <i class="fas fa-chart-line mr-2"></i>Dashboard
+</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-white hover:text-pink-200">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-24 pb-12">
+        <div class="max-w-7xl mx-auto px-4">
+            
+            <!-- Page Header -->
+            <div class="text-center mb-16">
+                <div class="floating mb-8">
+                    <i class="fas fa-envelope-open-text text-6xl text-white"></i>
+                </div>
+                <h1 class="text-5xl md:text-6xl font-bold text-white mb-6">
+                    Entre em Contato
+                </h1>
+                <div class="w-32 h-1 bg-gradient-to-r from-pink-400 to-purple-500 mx-auto rounded-full mb-8"></div>
+                <p class="text-xl text-pink-100 max-w-4xl mx-auto leading-relaxed">
+                    Vamos conversar sobre <strong class="text-white">tecnologia</strong>, 
+                    <strong class="text-white">projetos</strong> e 
+                    <strong class="text-white">oportunidades</strong> de colaboração
+                </p>
+            </div>
+
+            <!-- Main Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+                
+                <!-- Contact Information Section -->
+                <div class="space-y-8">
+                    <div class="glass-effect p-8 rounded-2xl">
+                        <h2 class="text-3xl font-bold text-white mb-8 flex items-center">
+                            <div class="relative mr-4">
+                                <i class="fas fa-address-book text-pink-400 text-3xl"></i>
+                                <span class="absolute top-0 right-0 flex h-3 w-3">
+                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-400 opacity-75"></span>
+                                    <span class="relative inline-flex rounded-full h-3 w-3 bg-pink-500"></span>
+                                </span>
+                            </div>
+                            Informações de Contato
+                        </h2>
+                        
+                        <div class="space-y-6">
+                            <!-- Email Card -->
+                            <div class="contact-card glass-effect p-6 rounded-xl cursor-pointer" onclick="copyToClipboard('<%= contato.email %>', 'email')">
+                                <div class="flex items-center">
+                                    <div class="w-16 h-16 rounded-full bg-gradient-to-r from-pink-400 to-red-500 flex items-center justify-center text-2xl text-white mr-5 flex-shrink-0">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h3 class="text-white font-bold text-lg mb-1">Email</h3>
+                                        <a href="mailto:<%= contato.email %>" 
+                                           class="text-pink-200 hover:text-pink-100 transition-colors text-lg">
+                                            <%= contato.email %>
+                                        </a>
+                                        <p class="text-pink-300 text-sm mt-1">
+                                            <i class="fas fa-copy mr-1"></i>Clique para copiar
+                                        </p>
+                                    </div>
+                                    <a href="mailto:<%= contato.email %>" 
+                                       class="text-pink-300 hover:text-pink-100 text-xl transition-colors ml-4">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Phone Card -->
+                            <div class="contact-card glass-effect p-6 rounded-xl cursor-pointer" onclick="copyToClipboard('<%= contato.telefone %>', 'phone')">
+                                <div class="flex items-center">
+                                    <div class="w-16 h-16 rounded-full bg-gradient-to-r from-green-400 to-blue-500 flex items-center justify-center text-2xl text-white mr-5 flex-shrink-0">
+                                        <i class="fas fa-phone"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h3 class="text-white font-bold text-lg mb-1">Telefone / WhatsApp</h3>
+                                        <a href="tel:+55<%= contato.telefone %>" 
+                                           class="text-green-200 hover:text-green-100 transition-colors text-lg">
+                                            +55 (<%= contato.telefone.substring(0, 2) %>) <%= contato.telefone.substring(2, 7) %>-<%= contato.telefone.substring(7) %>
+                                        </a>
+                                        <p class="text-green-300 text-sm mt-1">
+                                            <i class="fas fa-copy mr-1"></i>Clique para copiar
+                                        </p>
+                                    </div>
+                                    <a href="https://wa.me/55<%= contato.telefone %>" target="_blank"
+                                       class="text-green-300 hover:text-green-100 text-xl transition-colors ml-4">
+                                        <i class="fab fa-whatsapp"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- LinkedIn Card -->
+                            <div class="contact-card glass-effect p-6 rounded-xl">
+                                <div class="flex items-center">
+                                    <div class="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-blue-700 flex items-center justify-center text-2xl text-white mr-5 flex-shrink-0">
+                                        <i class="fab fa-linkedin-in"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h3 class="text-white font-bold text-lg mb-1">LinkedIn</h3>
+                                        <a href="https://linkedin.com/in/<%= contato.linkedin %>" target="_blank"
+                                           class="text-blue-200 hover:text-blue-100 transition-colors text-sm break-all">
+                                            linkedin.com/in/<%= contato.linkedin %>
+                                        </a>
+                                        <p class="text-blue-300 text-sm mt-1">
+                                            <i class="fas fa-user-tie mr-1"></i>Perfil Profissional
+                                        </p>
+                                    </div>
+                                    <a href="https://linkedin.com/in/<%= contato.linkedin %>" target="_blank"
+                                       class="text-blue-300 hover:text-blue-100 text-xl transition-colors ml-4">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- GitHub Card -->
+                            <div class="contact-card glass-effect p-6 rounded-xl">
+                                <div class="flex items-center">
+                                    <div class="w-16 h-16 rounded-full bg-gradient-to-r from-gray-700 to-gray-900 flex items-center justify-center text-2xl text-white mr-5 flex-shrink-0">
+                                        <i class="fab fa-github"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h3 class="text-white font-bold text-lg mb-1">GitHub</h3>
+                                        <a href="https://github.com/kathellyn-caroline" target="_blank"
+                                           class="text-gray-200 hover:text-gray-100 transition-colors text-sm">
+                                            github.com/kathellyn-caroline
+                                        </a>
+                                        <p class="text-gray-300 text-sm mt-1">
+                                            <i class="fas fa-code-branch mr-1"></i>Projetos e Repositórios
+                                        </p>
+                                    </div>
+                                    <a href="https://github.com/kathellyn-caroline" target="_blank"
+                                       class="text-gray-300 hover:text-gray-100 text-xl transition-colors ml-4">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Response Time -->
+                    <div class="glass-effect p-6 rounded-xl text-center">
+                        <div class="flex items-center justify-center mb-3">
+                            <i class="fas fa-clock text-yellow-400 text-2xl mr-3"></i>
+                            <span class="text-white font-semibold text-lg">Tempo de Resposta</span>
+                        </div>
+                        <p class="text-pink-100 text-lg">
+                            Respondo geralmente em <strong class="text-white">até 24 horas</strong>
+                        </p>
+                        <div class="flex justify-center space-x-2 mt-4">
+                            <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                            <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse" style="animation-delay: 0.3s;"></span>
+                            <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse" style="animation-delay: 0.6s;"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Statistics Section -->
+                <div class="space-y-8">
+                    <div class="glass-effect p-8 rounded-2xl">
+                        <h2 class="text-3xl font-bold text-white mb-8 flex items-center">
+                            <i class="fas fa-chart-bar mr-3 text-purple-400"></i>
+                            Estatísticas do Portfólio
+                        </h2>
+                        
+                        <div class="space-y-6">
+                            <!-- Disciplines Stat -->
+                            <div class="stat-card glass-effect p-6 rounded-xl" style="animation-delay: 0.1s;">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center flex-1">
+                                        <div class="w-14 h-14 rounded-full bg-gradient-to-r from-pink-400 to-pink-600 flex items-center justify-center text-white mr-4">
+                                            <i class="fas fa-graduation-cap text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-white font-semibold text-lg">Disciplinas Cursadas</h3>
+                                            <p class="text-pink-200 text-sm">Base sólida em múltiplas áreas</p>
+                                        </div>
+                                    </div>
+                                    <div class="text-4xl font-bold text-pink-300"><%= estatisticas.totalDisciplinas %></div>
+                                </div>
+                                
+                                <!-- Progress Bar -->
+                                <div class="mt-4">
+                                    <div class="w-full bg-white/10 rounded-full h-2">
+                                        <div class="bg-gradient-to-r from-pink-400 to-pink-600 h-2 rounded-full" style="width: 100%; animation: progressFill 2s ease-out;"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Projects Stat -->
+                            <div class="stat-card glass-effect p-6 rounded-xl" style="animation-delay: 0.2s;">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center flex-1">
+                                        <div class="w-14 h-14 rounded-full bg-gradient-to-r from-purple-400 to-purple-600 flex items-center justify-center text-white mr-4">
+                                            <i class="fas fa-project-diagram text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-white font-semibold text-lg">Projetos Concluídos</h3>
+                                            <p class="text-purple-200 text-sm">Aplicações práticas funcionais</p>
+                                        </div>
+                                    </div>
+                                    <div class="text-4xl font-bold text-purple-300"><%= estatisticas.projetosConcluidos %></div>
+                                </div>
+                                
+                                <!-- Progress Bar -->
+                                <div class="mt-4">
+                                    <div class="w-full bg-white/10 rounded-full h-2">
+                                        <div class="bg-gradient-to-r from-purple-400 to-purple-600 h-2 rounded-full" style="width: 100%; animation: progressFill 2s ease-out 0.2s both;"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Technologies Stat -->
+                            <div class="stat-card glass-effect p-6 rounded-xl" style="animation-delay: 0.3s;">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="flex items-center flex-1">
+                                        <div class="w-14 h-14 rounded-full bg-gradient-to-r from-blue-400 to-blue-600 flex items-center justify-center text-white mr-4">
+                                            <i class="fas fa-code text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-white font-semibold text-lg">Tecnologias Dominadas</h3>
+                                            <p class="text-blue-200 text-sm">Stack completa de desenvolvimento</p>
+                                        </div>
+                                    </div>
+                                    <div class="text-4xl font-bold text-blue-300"><%= estatisticas.tecnologiasUsadas.length %></div>
+                                </div>
+                                
+                                <!-- Technologies Grid -->
+                                <div class="flex flex-wrap gap-2 mt-4">
+                                    <% estatisticas.tecnologiasUsadas.forEach((tech, index) => { %>
+                                        <span class="tech-badge bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-blue-200 px-3 py-1 rounded-full text-sm font-semibold border border-blue-400/30" style="animation-delay: <%= index * 0.05 %>s;">
+                                            <%= tech %>
+                                        </span>
+                                    <% }); %>
+                                </div>
+                            </div>
+
+                            <!-- Experience Timeline -->
+                            <div class="stat-card glass-effect p-6 rounded-xl" style="animation-delay: 0.4s;">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-14 h-14 rounded-full bg-gradient-to-r from-green-400 to-green-600 flex items-center justify-center text-white mr-4">
+                                        <i class="fas fa-calendar-check text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-white font-semibold text-lg">Experiência Acadêmica</h3>
+                                        <p class="text-green-200 text-sm">2024 - Presente</p>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-2 gap-4 mt-4">
+                                    <div class="bg-white/5 p-3 rounded-lg text-center">
+                                        <div class="text-2xl font-bold text-green-300">18+</div>
+                                        <p class="text-green-200 text-xs">Meses</p>
+                                    </div>
+                                    <div class="bg-white/5 p-3 rounded-lg text-center">
+                                        <div class="text-2xl font-bold text-green-300">100%</div>
+                                        <p class="text-green-200 text-xs">Comprometimento</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="glass-effect p-6 rounded-xl">
+                        <h3 class="text-xl font-bold text-white mb-6 text-center">
+                            <i class="fas fa-bolt mr-2 text-yellow-400"></i>
+                            Acesso Rápido
+                        </h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <a href="/projetos" class="flex flex-col items-center p-4 bg-white/5 rounded-xl hover:bg-white/10 transition-all duration-300 group">
+                                <div class="w-14 h-14 rounded-full bg-gradient-to-r from-pink-400 to-purple-500 flex items-center justify-center text-2xl text-white mb-3 group-hover:scale-110 transition-transform duration-300">
+                                    <i class="fas fa-folder-open"></i>
+                                </div>
+                                <span class="text-white text-sm font-semibold text-center">Ver Projetos</span>
+                            </a>
+                            <a href="/disciplinas" class="flex flex-col items-center p-4 bg-white/5 rounded-xl hover:bg-white/10 transition-all duration-300 group">
+                                <div class="w-14 h-14 rounded-full bg-gradient-to-r from-green-400 to-blue-500 flex items-center justify-center text-2xl text-white mb-3 group-hover:scale-110 transition-transform duration-300">
+                                    <i class="fas fa-book"></i>
+                                </div>
+                                <span class="text-white text-sm font-semibold text-center">Ver Disciplinas</span>
+                            </a>
+                            <a href="/sobre" class="flex flex-col items-center p-4 bg-white/5 rounded-xl hover:bg-white/10 transition-all duration-300 group">
+                                <div class="w-14 h-14 rounded-full bg-gradient-to-r from-purple-400 to-pink-500 flex items-center justify-center text-2xl text-white mb-3 group-hover:scale-110 transition-transform duration-300">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <span class="text-white text-sm font-semibold text-center">Sobre Mim</span>
+                            </a>
+                            <a href="/" class="flex flex-col items-center p-4 bg-white/5 rounded-xl hover:bg-white/10 transition-all duration-300 group">
+                                <div class="w-14 h-14 rounded-full bg-gradient-to-r from-blue-400 to-cyan-500 flex items-center justify-center text-2xl text-white mb-3 group-hover:scale-110 transition-transform duration-300">
+                                    <i class="fas fa-home"></i>
+                                </div>
+                                <span class="text-white text-sm font-semibold text-center">Página Inicial</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to Action Section -->
+            <div class="text-center">
+                <div class="glass-effect p-12 rounded-2xl max-w-6xl mx-auto">
+                    <div class="mb-8">
+                        <i class="fas fa-handshake text-6xl text-blue-400 mb-6 floating"></i>
+                    </div>
+                    
+                    <h3 class="text-4xl md:text-5xl font-bold text-white mb-6">
+                        Vamos Trabalhar Juntos?
+                    </h3>
+                    
+                    <p class="text-xl text-pink-100 mb-12 leading-relaxed max-w-4xl mx-auto">
+                        Estou sempre aberta a novas <strong class="text-white">oportunidades</strong>, 
+                        <strong class="text-white">colaborações</strong> em projetos interessantes e 
+                        conversas sobre <strong class="text-white">tecnologia</strong>. Seja para um projeto freelance, 
+                        estágio ou oportunidade de trabalho, ficarei feliz em conversar!
+                    </p>
+
+                    <!-- Opportunities Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                        <div class="bg-white/5 p-6 rounded-xl hover:bg-white/10 transition-all duration-300 border border-white/10">
+                            <i class="fas fa-briefcase text-4xl text-pink-400 mb-4"></i>
+                            <h4 class="text-white font-bold text-xl mb-3">Oportunidades Profissionais</h4>
+                            <p class="text-pink-200">Estágio, trainee ou posições junior/pleno em desenvolvimento</p>
+                        </div>
+                        
+                        <div class="bg-white/5 p-6 rounded-xl hover:bg-white/10 transition-all duration-300 border border-white/10">
+                            <i class="fas fa-laptop-code text-4xl text-purple-400 mb-4"></i>
+                            <h4 class="text-white font-bold text-xl mb-3">Projetos Freelance</h4>
+                            <p class="text-purple-200">Desenvolvimento de soluções web e mobile personalizadas</p>
+                        </div>
+                        
+                        <div class="bg-white/5 p-6 rounded-xl hover:bg-white/10 transition-all duration-300 border border-white/10">
+                            <i class="fas fa-users text-4xl text-blue-400 mb-4"></i>
+                            <h4 class="text-white font-bold text-xl mb-3">Colaborações Acadêmicas</h4>
+                            <p class="text-blue-200">Projetos de pesquisa, hackathons e iniciativas educacionais</p>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex flex-col md:flex-row gap-4 justify-center">
+                        <a href="mailto:<%= contato.email %>?subject=Oportunidade%20de%20Colaboração&body=Olá%20Kathellyn,%0D%0A%0D%0AGostaria%20de%20conversar%20sobre..." 
+                           class="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 px-8 py-4 rounded-full text-white font-bold transition-all duration-300 transform hover:scale-105 shadow-lg inline-flex items-center justify-center">
+                            <i class="fas fa-paper-plane mr-2"></i>Enviar Email
+                        </a>
+                        <a href="https://wa.me/55<%= contato.telefone %>?text=Olá%20Kathellyn!%20Vi%20seu%20portfólio%20e%20gostaria%20de%20conversar%20sobre..." 
+                           target="_blank"
+                           class="glass-effect hover:bg-white/20 px-8 py-4 rounded-full text-white font-bold transition-all duration-300 transform hover:scale-105 inline-flex items-center justify-center">
+                            <i class="fab fa-whatsapp mr-2"></i>WhatsApp
+                        </a>
+                        <a href="https://linkedin.com/in/<%= contato.linkedin %>" 
+                           target="_blank"
+                           class="glass-effect hover:bg-white/20 px-8 py-4 rounded-full text-white font-bold transition-all duration-300 transform hover:scale-105 inline-flex items-center justify-center">
+                            <i class="fab fa-linkedin mr-2"></i>Conectar no LinkedIn
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass-effect py-12 mt-16">
+        <div class="container mx-auto px-4">
+            <div class="text-center">
+                <div class="flex justify-center space-x-6 mb-6">
+                    <a href="https://linkedin.com/in/<%= contato.linkedin %>" target="_blank" 
+                       class="w-12 h-12 rounded-full glass-effect flex items-center justify-center text-white text-xl hover:bg-white/20 transition-all duration-300 hover:scale-110">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://github.com/kathellyn-caroline" target="_blank" 
+                       class="w-12 h-12 rounded-full glass-effect flex items-center justify-center text-white text-xl hover:bg-white/20 transition-all duration-300 hover:scale-110">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="mailto:<%= contato.email %>" 
+                       class="w-12 h-12 rounded-full glass-effect flex items-center justify-center text-white text-xl hover:bg-white/20 transition-all duration-300 hover:scale-110">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    <a href="https://wa.me/55<%= contato.telefone %>" target="_blank" 
+                       class="w-12 h-12 rounded-full glass-effect flex items-center justify-center text-white text-xl hover:bg-white/20 transition-all duration-300 hover:scale-110">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+                
+                <p class="text-white text-lg mb-2">
+                    &copy; 2025 Kathellyn Caroline Alves dos Santos. Todos os direitos reservados.
+                </p>
+                <p class="text-pink-200 text-sm">
+                    Desenvolvido com <i class="fas fa-heart text-red-400"></i> usando Node.js, Express e EJS
+                </p>
+                <p class="text-pink-300 text-xs mt-3">
+                    FATEC Jessen Vidal - Desenvolvimento Web II - 2025
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Copy to clipboard function
+        function copyToClipboard(text, type) {
+            navigator.clipboard.writeText(text).then(function() {
+                showCopyNotification();
+            }).catch(function(err) {
+                console.error('Erro ao copiar:', err);
+            });
+        }
+
+        // Show copy notification
+        function showCopyNotification() {
+            const notification = document.getElementById('copyNotification');
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Progress bar animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes progressFill {
+                from { width: 0%; }
+                to { width: 100%; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Intersection Observer for stat cards
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, observerOptions);
+
+        // Observe stat cards
+        document.querySelectorAll('.stat-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Enhanced hover effects for contact cards
+        document.querySelectorAll('.contact-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px) scale(1.03)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Animate tech badges on scroll
+        const techBadges = document.querySelectorAll('.tech-badge');
+        const badgeObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'scale(1)';
+                    }, index * 50);
+                }
+            });
+        });
+
+        techBadges.forEach(badge => {
+            badge.style.opacity = '0';
+            badge.style.transform = 'scale(0.8)';
+            badge.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+            badgeObserver.observe(badge);
+        });
+
+        // Add smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Initialize animations on page load
+        window.addEventListener('load', function() {
+            // Trigger stat card animations
+            document.querySelectorAll('.stat-card').forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+        });
+    </script>
+</body>
+</html>

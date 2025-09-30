@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre Mim - <%= estudante.nome %></title>
+    <meta name="description" content="Conheça mais sobre <%= estudante.nome %>, estudante de <%= estudante.curso %> na <%= estudante.instituicao %>">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #ec4899, #8b5cf6, #3b82f6);
+            animation: gradient 15s ease infinite;
+            background-size: 300% 300%;
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .glass-effect {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .timeline-item {
+            opacity: 0;
+            transform: translateX(-50px);
+            animation: slideInLeft 0.6s ease forwards;
+        }
+
+        @keyframes slideInLeft {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen gradient-bg">
+    <!-- Navigation Bar -->
+    <nav class="glass-effect fixed top-0 w-full z-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <!-- Logo/Brand -->
+                <div class="text-white font-bold text-xl">
+                    <a href="/" class="hover:text-pink-200 transition-colors duration-300 flex items-center">
+                        <i class="fas fa-code mr-2"></i>
+                        KC Portfolio
+                    </a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-6">
+                    <a href="/" class="text-white hover:text-pink-200 hover:bg-white/10 px-4 py-2 rounded-full transition-all duration-300">
+                        <i class="fas fa-home mr-2"></i>Início
+                    </a>
+                    <a href="/sobre" class="text-white bg-white/20 px-4 py-2 rounded-full font-semibold transition-all duration-300">
+                        <i class="fas fa-user mr-2"></i>Sobre
+                    </a>
+                    <a href="/disciplinas" class="text-white hover:text-pink-200 hover:bg-white/10 px-4 py-2 rounded-full transition-all duration-300">
+                        <i class="fas fa-book mr-2"></i>Disciplinas
+                    </a>
+                    <a href="/projetos" class="text-white hover:text-pink-200 hover:bg-white/10 px-4 py-2 rounded-full transition-all duration-300">
+                        <i class="fas fa-folder-open mr-2"></i>Projetos
+                    </a>
+                    <a href="/contato" class="text-white hover:text-pink-200 hover:bg-white/10 px-4 py-2 rounded-full transition-all duration-300">
+                        <i class="fas fa-envelope mr-2"></i>Contato
+                    </a>
+                    <a href="/dashboard" class="text-white hover:text-pink-200 hover:bg-white/10 px-4 py-2 rounded-full transition-all duration-300">
+    <i class="fas fa-chart-line mr-2"></i>Dashboard
+</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-white hover:text-pink-200">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-24 pb-12">
+        <div class="max-w-7xl mx-auto px-4">
+            
+            <!-- Page Header -->
+            <div class="text-center mb-16">
+                <h1 class="text-5xl md:text-6xl font-bold text-white mb-6">
+                    Sobre Mim
+                </h1>
+                <div class="w-32 h-1 bg-gradient-to-r from-pink-400 to-purple-500 mx-auto rounded-full mb-8"></div>
+                <p class="text-xl text-pink-100 max-w-3xl mx-auto leading-relaxed">
+                    Conheça minha jornada acadêmica e profissional no mundo da tecnologia
+                </p>
+            </div>
+
+            <!-- Main Content Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mb-16">
+                
+                <!-- Profile Section -->
+                <div class="space-y-8">
+                    <!-- Profile Image -->
+<!-- Profile Image -->
+<div class="text-center">
+    <div class="w-80 h-80 mx-auto rounded-full overflow-hidden shadow-2xl card-hover border-4 border-white/30">
+        <img src="/images/perfil.jfif" 
+             alt="Kathellyn Caroline Alves dos Santos" 
+             class="w-full h-full object-cover">
+    </div>
+</div>
+                    
+                    <!-- Academic Info Card -->
+                    <div class="glass-effect p-8 rounded-2xl card-hover">
+                        <h2 class="text-3xl font-bold text-white mb-6 flex items-center">
+                            <i class="fas fa-graduation-cap mr-3 text-pink-400"></i>
+                            Informações Acadêmicas
+                        </h2>
+                        
+                        <div class="space-y-6">
+                            <!-- Course -->
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 rounded-full bg-gradient-to-r from-pink-400 to-pink-600 flex items-center justify-center text-xl text-white mr-4 flex-shrink-0">
+                                    <i class="fas fa-laptop-code"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-white font-semibold text-lg">Curso</h3>
+                                    <p class="text-pink-100 text-lg"><%= estudante.curso %></p>
+                                </div>
+                            </div>
+
+                            <!-- Institution -->
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 rounded-full bg-gradient-to-r from-purple-400 to-purple-600 flex items-center justify-center text-xl text-white mr-4 flex-shrink-0">
+                                    <i class="fas fa-university"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-white font-semibold text-lg">Instituição</h3>
+                                    <p class="text-purple-100 text-lg"><%= estudante.instituicao %></p>
+                                </div>
+                            </div>
+
+                            <!-- Entry Year -->
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 rounded-full bg-gradient-to-r from-blue-400 to-blue-600 flex items-center justify-center text-xl text-white mr-4 flex-shrink-0">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-white font-semibold text-lg">Ano de Ingresso</h3>
+                                    <p class="text-blue-100 text-lg"><%= estudante.anoIngresso %></p>
+                                </div>
+                            </div>
+
+                            <!-- Current Status -->
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 rounded-full bg-gradient-to-r from-green-400 to-green-600 flex items-center justify-center text-xl text-white mr-4 flex-shrink-0">
+                                    <i class="fas fa-user-clock"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-white font-semibold text-lg">Status Atual</h3>
+                                    <p class="text-green-100 text-lg">Cursando - <%= new Date().getFullYear() - estudante.anoIngresso + 1 %>º Ano</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- About Text and Details -->
+                <div class="space-y-8">
+                    
+                    <!-- Personal Introduction -->
+                    <div class="glass-effect p-8 rounded-2xl card-hover">
+                        <h2 class="text-4xl font-bold text-white mb-6">
+                            Olá! Eu sou a <span class="bg-gradient-to-r from-pink-300 to-purple-300 bg-clip-text text-transparent"><%= estudante.nome %></span>
+                        </h2>
+                        
+                        <div class="text-pink-100 space-y-6 text-lg leading-relaxed">
+                            <p>
+                                Sou estudante de <strong class="text-white"><%= estudante.curso %></strong> 
+                                na <strong class="text-white"><%= estudante.instituicao %></strong>, 
+                                onde iniciei minha jornada acadêmica em <strong class="text-white"><%= estudante.anoIngresso %></strong>.
+                            </p>
+                            
+                            <p>
+                                Tenho grande paixão por tecnologia e desenvolvimento de software, sempre buscando 
+                                aprender novas linguagens, frameworks e metodologias. Durante minha formação, venho 
+                                desenvolvendo habilidades sólidas em diversas áreas da computação, desde fundamentos 
+                                matemáticos até tecnologias modernas de desenvolvimento.
+                            </p>
+                            
+                            <p>
+                                Meu foco principal está no desenvolvimento full-stack, trabalhando com tecnologias 
+                                como Python, Java, JavaScript, Node.js e bancos de dados relacionais e não-relacionais. 
+                                Acredito no poder da tecnologia para transformar ideias em soluções práticas que 
+                                impactem positivamente a vida das pessoas.
+                            </p>
+                            
+                            <p>
+                                Além dos estudos, busco constantemente aplicar os conhecimentos adquiridos em projetos 
+                                práticos, participando de iniciativas que me permitam crescer tanto tecnicamente quanto 
+                                profissionalmente.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Skills and Areas of Interest -->
+                    <div class="glass-effect p-8 rounded-2xl card-hover">
+                        <h3 class="text-3xl font-bold text-white mb-8 flex items-center">
+                            <i class="fas fa-star mr-3 text-yellow-400"></i>
+                            Áreas de Especialização
+                        </h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Web Development -->
+                            <div class="bg-white/5 p-6 rounded-xl hover:bg-white/10 transition-all duration-300">
+                                <div class="flex items-center mb-4">
+                                    <i class="fas fa-globe text-pink-300 text-2xl mr-4"></i>
+                                    <h4 class="text-white font-semibold text-lg">Desenvolvimento Web</h4>
+                                </div>
+                                <p class="text-pink-100 text-sm">
+                                    Frontend e Backend com tecnologias modernas como React, Node.js e Express
+                                </p>
+                            </div>
+
+                            <!-- Mobile Development -->
+                            <div class="bg-white/5 p-6 rounded-xl hover:bg-white/10 transition-all duration-300">
+                                <div class="flex items-center mb-4">
+                                    <i class="fas fa-mobile-alt text-purple-300 text-2xl mr-4"></i>
+                                    <h4 class="text-white font-semibold text-lg">Desenvolvimento Mobile</h4>
+                                </div>
+                                <p class="text-purple-100 text-sm">
+                                    Aplicações multiplataforma com React Native e desenvolvimento híbrido
+                                </p>
+                            </div>
+
+                            <!-- Database -->
+                            <div class="bg-white/5 p-6 rounded-xl hover:bg-white/10 transition-all duration-300">
+                                <div class="flex items-center mb-4">
+                                    <i class="fas fa-database text-blue-300 text-2xl mr-4"></i>
+                                    <h4 class="text-white font-semibold text-lg">Banco de Dados</h4>
+                                </div>
+                                <p class="text-blue-100 text-sm">
+                                    Modelagem e gestão de dados com MySQL, MongoDB, Neo4j e Redis
+                                </p>
+                            </div>
+
+                            <!-- AI & Machine Learning -->
+                            <div class="bg-white/5 p-6 rounded-xl hover:bg-white/10 transition-all duration-300">
+                                <div class="flex items-center mb-4">
+                                    <i class="fas fa-brain text-green-300 text-2xl mr-4"></i>
+                                    <h4 class="text-white font-semibold text-lg">Inteligência Artificial</h4>
+                                </div>
+                                <p class="text-green-100 text-sm">
+                                    Machine Learning, NLP e desenvolvimento de chatbots inteligentes
+                                </p>
+                            </div>
+
+                            <!-- IoT -->
+                            <div class="bg-white/5 p-6 rounded-xl hover:bg-white/10 transition-all duration-300">
+                                <div class="flex items-center mb-4">
+                                    <i class="fas fa-wifi text-orange-300 text-2xl mr-4"></i>
+                                    <h4 class="text-white font-semibold text-lg">Internet das Coisas</h4>
+                                </div>
+                                <p class="text-orange-100 text-sm">
+                                    Desenvolvimento de sistemas IoT com Arduino e sensores
+                                </p>
+                            </div>
+
+                            <!-- Project Management -->
+                            <div class="bg-white/5 p-6 rounded-xl hover:bg-white/10 transition-all duration-300">
+                                <div class="flex items-center mb-4">
+                                    <i class="fas fa-tasks text-red-300 text-2xl mr-4"></i>
+                                    <h4 class="text-white font-semibold text-lg">Gestão de Projetos</h4>
+                                </div>
+                                <p class="text-red-100 text-sm">
+                                    Metodologias ágeis, Scrum e desenvolvimento colaborativo
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Academic Timeline -->
+            <div class="mb-16">
+                <div class="glass-effect p-8 rounded-2xl">
+                    <h3 class="text-3xl font-bold text-white text-center mb-12 flex items-center justify-center">
+                        <i class="fas fa-timeline mr-3 text-purple-400"></i>
+                        Linha do Tempo Acadêmica
+                    </h3>
+                    
+                    <div class="max-w-4xl mx-auto">
+                        <!-- Timeline Item 1 -->
+                        <div class="timeline-item flex items-center mb-8" style="animation-delay: 0.2s;">
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-r from-green-400 to-green-600 flex items-center justify-center text-white text-xl flex-shrink-0 mr-6">
+                                <i class="fas fa-door-open"></i>
+                            </div>
+                            <div class="flex-grow glass-effect p-6 rounded-xl">
+                                <h4 class="text-white font-bold text-lg mb-2"><%= estudante.anoIngresso %> - Ingresso na FATEC</h4>
+                                <p class="text-green-100">
+                                    Início da jornada acadêmica em <%= estudante.curso %> na <%= estudante.instituicao %>
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Timeline Item 2 -->
+                        <div class="timeline-item flex items-center mb-8" style="animation-delay: 0.4s;">
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-r from-blue-400 to-blue-600 flex items-center justify-center text-white text-xl flex-shrink-0 mr-6">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div class="flex-grow glass-effect p-6 rounded-xl">
+                                <h4 class="text-white font-bold text-lg mb-2">2024-2025 - Desenvolvimento de Projetos</h4>
+                                <p class="text-blue-100">
+                                    Criação de 4 projetos acadêmicos significativos, aplicando conhecimentos em desenvolvimento web, IA e IoT
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Timeline Item 3 -->
+                        <div class="timeline-item flex items-center mb-8" style="animation-delay: 0.6s;">
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-r from-purple-400 to-purple-600 flex items-center justify-center text-white text-xl flex-shrink-0 mr-6">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="flex-grow glass-effect p-6 rounded-xl">
+                                <h4 class="text-white font-bold text-lg mb-2">2025 - Especialização Contínua</h4>
+                                <p class="text-purple-100">
+                                    Aprofundamento em 23 disciplinas técnicas, desenvolvendo expertise em múltiplas linguagens e tecnologias
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Timeline Item 4 -->
+                        <div class="timeline-item flex items-center" style="animation-delay: 0.8s;">
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-r from-pink-400 to-pink-600 flex items-center justify-center text-white text-xl flex-shrink-0 mr-6">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <div class="flex-grow glass-effect p-6 rounded-xl">
+                                <h4 class="text-white font-bold text-lg mb-2">Futuro - Mercado de Trabalho</h4>
+                                <p class="text-pink-100">
+                                    Preparação para ingressar no mercado de trabalho como desenvolvedora full-stack, contribuindo para projetos inovadores
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="text-center">
+                <div class="glass-effect p-12 rounded-2xl max-w-4xl mx-auto">
+                    <h3 class="text-4xl font-bold text-white mb-6">
+                        Quer saber mais sobre minha jornada?
+                    </h3>
+                    <p class="text-xl text-pink-100 mb-8 leading-relaxed">
+                        Explore meus projetos acadêmicos, disciplinas cursadas ou entre em contato 
+                        para conversarmos sobre tecnologia e oportunidades!
+                    </p>
+                    
+                    <div class="flex flex-col md:flex-row gap-4 justify-center">
+                        <a href="/projetos" 
+                           class="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 px-8 py-4 rounded-full text-white font-bold transition-all duration-300 transform hover:scale-105 shadow-lg">
+                            <i class="fas fa-folder-open mr-2"></i>Ver Meus Projetos
+                        </a>
+                        <a href="/disciplinas" 
+                           class="glass-effect hover:bg-white/20 px-8 py-4 rounded-full text-white font-bold transition-all duration-300 transform hover:scale-105">
+                            <i class="fas fa-book mr-2"></i>Disciplinas Cursadas
+                        </a>
+                        <a href="/contato" 
+                           class="glass-effect hover:bg-white/20 px-8 py-4 rounded-full text-white font-bold transition-all duration-300 transform hover:scale-105">
+                            <i class="fas fa-handshake mr-2"></i>Entre em Contato
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass-effect py-8 mt-16">
+        <div class="container mx-auto px-4 text-center text-white">
+            <p>&copy; 2025 <%= estudante.nome %>. Todos os direitos reservados.</p>
+            <p class="text-sm text-pink-200 mt-2">
+                Desenvolvido com <i class="fas fa-heart text-red-400"></i> usando Node.js, Express e EJS
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Apply animations to cards
+        document.querySelectorAll('.card-hover').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Timeline animation
+        document.querySelectorAll('.timeline-item').forEach((item, index) => {
+            setTimeout(() => {
+                item.style.animation = 'slideInLeft 0.6s ease forwards';
+            }, index * 200);
+        });
+    </script>
+</body>
+</html>

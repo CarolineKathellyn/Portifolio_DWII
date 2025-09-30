@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Projetos - Portfólio Kathellyn Caroline</title>
+    <meta name="description" content="Projetos acadêmicos e pessoais desenvolvidos durante a formação em Desenvolvimento de Software Multiplataforma">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #ec4899, #8b5cf6, #3b82f6);
+            animation: gradient 15s ease infinite;
+            background-size: 300% 300%;
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .glass-effect {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .project-card {
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transform: translateY(0);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .tech-tag {
+            transition: all 0.3s ease;
+        }
+
+        .tech-tag:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .modal {
+            backdrop-filter: blur(20px);
+            animation: modalFadeIn 0.3s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .feature-list li {
+            opacity: 0;
+            transform: translateX(-20px);
+            animation: slideInLeft 0.5s ease-out forwards;
+        }
+
+        @keyframes slideInLeft {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .floating-icon {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body class="min-h-screen gradient-bg">
+    <!-- Navigation Bar -->
+    <nav class="glass-effect fixed top-0 w-full z-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <!-- Logo/Brand -->
+                <div class="text-white font-bold text-xl">
+                    <a href="/" class="hover:text-pink-200 transition-colors duration-300 flex items-center">
+                        <i class="fas fa-code mr-2"></i>
+                        KC Portfolio
+                    </a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-6">
+                    <a href="/" class="text-white hover:text-pink-200 hover:bg-white/10 px-4 py-2 rounded-full transition-all duration-300">
+                        <i class="fas fa-home mr-2"></i>Início
+                    </a>
+                    <a href="/sobre" class="text-white hover:text-pink-200 hover:bg-white/10 px-4 py-2 rounded-full transition-all duration-300">
+                        <i class="fas fa-user mr-2"></i>Sobre
+                    </a>
+                    <a href="/disciplinas" class="text-white hover:text-pink-200 hover:bg-white/10 px-4 py-2 rounded-full transition-all duration-300">
+                        <i class="fas fa-book mr-2"></i>Disciplinas
+                    </a>
+                    <a href="/projetos" class="text-white bg-white/20 px-4 py-2 rounded-full font-semibold transition-all duration-300">
+                        <i class="fas fa-folder-open mr-2"></i>Projetos
+                    </a>
+                    <a href="/contato" class="text-white hover:text-pink-200 hover:bg-white/10 px-4 py-2 rounded-full transition-all duration-300">
+                        <i class="fas fa-envelope mr-2"></i>Contato
+                    </a>
+                    <a href="/dashboard" class="text-white hover:text-pink-200 hover:bg-white/10 px-4 py-2 rounded-full transition-all duration-300">
+    <i class="fas fa-chart-line mr-2"></i>Dashboard
+</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-white hover:text-pink-200">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-24 pb-12">
+        <div class="max-w-7xl mx-auto px-4">
+            
+            <!-- Page Header -->
+            <div class="text-center mb-16">
+                <h1 class="text-5xl md:text-6xl font-bold text-white mb-6">
+                    Meus Projetos
+                </h1>
+                <div class="w-32 h-1 bg-gradient-to-r from-pink-400 to-purple-500 mx-auto rounded-full mb-8"></div>
+                <p class="text-xl text-pink-100 max-w-4xl mx-auto leading-relaxed">
+                    <strong class="text-white"><%= projetos.length %> projetos acadêmicos</strong> que demonstram 
+                    minha evolução técnica e aplicação prática dos conhecimentos adquiridos
+                </p>
+            </div>
+
+            <!-- Project Statistics -->
+            <div class="glass-effect p-8 rounded-2xl mb-16">
+                <h2 class="text-3xl font-bold text-white text-center mb-8">
+                    <i class="fas fa-chart-bar mr-3 text-blue-400"></i>
+                    Estatísticas dos Projetos
+                </h2>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <!-- Projects Completed -->
+                    <div class="text-center bg-white/5 p-6 rounded-xl hover:bg-white/10 transition-all duration-300 group">
+                        <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-green-400 to-green-600 flex items-center justify-center floating-icon">
+                            <i class="fas fa-check-circle text-white text-2xl"></i>
+                        </div>
+                        <div class="text-4xl font-bold text-green-300 mb-2"><%= projetos.length %></div>
+                        <p class="text-green-100 font-semibold">Projetos Concluídos</p>
+                    </div>
+
+                    <!-- Technologies Used -->
+                    <div class="text-center bg-white/5 p-6 rounded-xl hover:bg-white/10 transition-all duration-300 group">
+                        <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-purple-400 to-purple-600 flex items-center justify-center floating-icon" style="animation-delay: 0.5s;">
+                            <i class="fas fa-cogs text-white text-2xl"></i>
+                        </div>
+                        <div class="text-4xl font-bold text-purple-300 mb-2">11</div>
+                        <p class="text-purple-100 font-semibold">Tecnologias Utilizadas</p>
+                    </div>
+
+                    <!-- Experience Months -->
+                    <div class="text-center bg-white/5 p-6 rounded-xl hover:bg-white/10 transition-all duration-300 group">
+                        <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-blue-400 to-blue-600 flex items-center justify-center floating-icon" style="animation-delay: 1s;">
+                            <i class="fas fa-calendar-alt text-white text-2xl"></i>
+                        </div>
+                        <div class="text-4xl font-bold text-blue-300 mb-2">18</div>
+                        <p class="text-blue-100 font-semibold">Meses de Experiência</p>
+                    </div>
+
+                    <!-- Success Rate -->
+                    <div class="text-center bg-white/5 p-6 rounded-xl hover:bg-white/10 transition-all duration-300 group">
+                        <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-pink-400 to-pink-600 flex items-center justify-center floating-icon" style="animation-delay: 1.5s;">
+                            <i class="fas fa-trophy text-white text-2xl"></i>
+                        </div>
+                        <div class="text-4xl font-bold text-pink-300 mb-2">100%</div>
+                        <p class="text-pink-100 font-semibold">Taxa de Entrega</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+                <% projetos.forEach((projeto, index) => { 
+                    // Determinar ícone do projeto
+                    let projectIcon = 'fas fa-code';
+                    let iconColor = 'from-blue-400 to-blue-600';
+                    
+                    if (projeto.titulo.includes('Estoque') || projeto.titulo.includes('ProStock')) {
+                        projectIcon = 'fas fa-boxes';
+                        iconColor = 'from-orange-400 to-orange-600';
+                    } else if (projeto.titulo.includes('Agricultura') || projeto.titulo.includes('GreenTECH')) {
+                        projectIcon = 'fas fa-seedling';
+                        iconColor = 'from-green-400 to-green-600';
+                    } else if (projeto.titulo.includes('ChatBot') || projeto.titulo.includes('IA')) {
+                        projectIcon = 'fas fa-robot';
+                        iconColor = 'from-purple-400 to-purple-600';
+                    } else if (projeto.titulo.includes('Ponto') || projeto.titulo.includes('NectoPoint')) {
+                        projectIcon = 'fas fa-clock';
+                        iconColor = 'from-blue-400 to-blue-600';
+                    }
+                %>
+                    <div class="project-card glass-effect rounded-2xl overflow-hidden" 
+                         style="animation-delay: <%= index * 0.2 %>s;">
+                        
+                        <!-- Project Header -->
+                        <div class="p-6 border-b border-white/10">
+                            <div class="flex items-start justify-between mb-6">
+                                <div class="flex-1">
+                                    <h3 class="text-2xl md:text-3xl font-bold text-white mb-3 leading-tight">
+                                        <%= projeto.titulo %>
+                                    </h3>
+                                    <div class="flex items-center text-pink-200 text-sm mb-4">
+                                        <i class="fas fa-calendar mr-2"></i>
+                                        <span>Projeto Acadêmico - 2024/2025</span>
+                                        <span class="mx-2">•</span>
+                                        <i class="fas fa-graduation-cap mr-1"></i>
+                                        <span>FATEC</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Project Icon -->
+                                <div class="ml-6 flex-shrink-0">
+                                    <div class="w-20 h-20 rounded-full bg-gradient-to-r <%= iconColor %> flex items-center justify-center text-3xl text-white shadow-lg hover:scale-110 transition-transform duration-300">
+                                        <i class="<%= projectIcon %>"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project Content -->
+                        <div class="p-6">
+                            <!-- Project Description -->
+                            <div class="mb-6">
+                                <h4 class="text-white font-semibold text-lg mb-3 flex items-center">
+                                    <i class="fas fa-info-circle mr-2 text-blue-400"></i>
+                                    Sobre o Projeto
+                                </h4>
+                                <p class="text-pink-100 leading-relaxed text-justify">
+                                    <%= projeto.descricao %>
+                                </p>
+                            </div>
+
+                            <!-- Technologies Used -->
+                            <div class="mb-6">
+                                <h4 class="text-white font-semibold text-lg mb-4 flex items-center">
+                                    <i class="fas fa-tools mr-2 text-purple-400"></i>
+                                    Tecnologias Utilizadas
+                                </h4>
+                                <div class="flex flex-wrap gap-2">
+                                    <% projeto.tecnologias.forEach(tech => { %>
+                                        <span class="tech-tag bg-white/10 text-pink-200 px-4 py-2 rounded-full text-sm font-semibold border border-white/20 hover:border-white/40 cursor-default">
+                                            <%= tech %>
+                                        </span>
+                                    <% }); %>
+                                </div>
+                            </div>
+
+                            <!-- Key Features -->
+                            <div class="mb-6">
+                                <h4 class="text-white font-semibold text-lg mb-4 flex items-center">
+                                    <i class="fas fa-star mr-2 text-yellow-400"></i>
+                                    Principais Funcionalidades
+                                </h4>
+                                <ul class="feature-list space-y-2">
+                                    <% if (projeto.titulo.includes('Estoque')) { %>
+                                        <li style="animation-delay: 0.1s;" class="flex items-center text-pink-100">
+                                            <i class="fas fa-check text-green-400 mr-3"></i>
+                                            <span>Controle automatizado de produtos e estoque</span>
+                                        </li>
+                                        <li style="animation-delay: 0.2s;" class="flex items-center text-pink-100">
+                                            <i class="fas fa-check text-green-400 mr-3"></i>
+                                            <span>Movimentações em tempo real com notificações</span>
+                                        </li>
+                                        <li style="animation-delay: 0.3s;" class="flex items-center text-pink-100">
+                                            <i class="fas fa-check text-green-400 mr-3"></i>
+                                            <span>Sistema completo de gestão de fornecedores</span>
+                                        </li>
+                                        <li style="animation-delay: 0.4s;" class="flex items-center text-pink-100">
+                                            <i class="fas fa-check text-green-400 mr-3"></i>
+                                            <span>Relatórios estratégicos e dashboards analíticos</span>
+                                        </li>
+                                    <% } else if (projeto.titulo.includes('Agricultura') || projeto.titulo.includes('GreenTECH')) { %>
+                                        <li style="animation-delay: 0.1s;" class="flex items-center text-pink-100">
+                                            <i class="fas fa-check text-green-400 mr-3"></i>
+                                            <span>Monitoramento de sensores IoT em tempo real</span>
+                                        </li>
+                                        <li style="animation-delay: 0.2s;" class="flex items-center text-pink-100">
+                                            <i class="fas fa-check text-green-400 mr-3"></i>
+                                            <span>Coleta automatizada de dados ambientais</span>
+                                        </li>
+                                        <li style="animation-delay: 0.3s;" class="flex items-center text-pink-100">
+                                            <i class="fas fa-check text-green-400 mr-3"></i>
+                                            <span>Interface web responsiva e intuitiva</span>
+                                        </li>
+                                        <li style="animation-delay: 0.4s;" class="flex items-center text-pink-100">
+                                            <i class="fas fa-check text-green-400 mr-3"></i>
+                                            <span>Integração com Arduino e AWS Cloud</span>
+                                        </li>
+                                    <% } else if (projeto.titulo.includes('ChatBot') || projeto.titulo.includes('IA')) { %>
+                                        <li style="animation-delay: 0.1s;" class="flex items-center text-pink-100">
+                                            <i class="fas fa-check text-green-400 mr-3"></i>
+                                            <span>Processamento de linguagem natural avançado</span>
+                                        </li>
+                                        <li style="animation-delay: 0.2s;" class="flex items-center text-pink-100">
+                                            <i class="fas fa-check text-green-400 mr-3"></i>
+                                            <span>Sistema inteligente de recomendação</span>
+                                        </li>
+                                        <li style="animation-delay: 0.3s;" class="flex items-center text-pink-100">
+                                            <i class="fas fa-check text-green-400 mr-3"></i>
+                                            <span>Integração com OpenAI API e LangChain</span>
+                                        </li>
+                                        <li style="animation-delay: 0.4s;" class="flex items-center text-pink-100">
+                                            <i class="fas fa-check text-green-400 mr-3"></i>
+                                            <span>Base vetorial para busca semântica</span>
+                                        </li>
+                                    <% } else if (projeto.titulo.includes('Ponto')) { %>
+                                        <li style="animation-delay: 0.1s;" class="flex items-center text-pink-100">
+                                            <i class="fas fa-check text-green-400 mr-3"></i>
+                                            <span>Controle de jornada flexível e personalizada</span>
+                                        </li>
+                                        <li style="animation-delay: 0.2s;" class="flex items-center text-pink-100">
+                                            <i class="fas fa-check text-green-400 mr-3"></i>
+                                            <span>Alertas em tempo real para marcações</span>
+                                        </li>
+                                        <li style="animation-delay: 0.3s;" class="flex items-center text-pink-100">
+                                            <i class="fas fa-check text-green-400 mr-3"></i>
+                                            <span>Relatórios analíticos e dashboards</span>
+                                        </li>
+                                        <li style="animation-delay: 0.4s;" class="flex items-center text-pink-100">
+                                            <i class="fas fa-check text-green-400 mr-3"></i>
+                                            <span>Gestão de férias e folgas automatizada</span>
+                                        </li>
+                                    <% } %>
+                                </ul>
+                            </div>
+
+                            <!-- Project Actions -->
+                            <div class="flex flex-col sm:flex-row gap-3 mb-6">
+                                <a href="<%= projeto.link %>" target="_blank" 
+                                   class="flex-1 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 px-6 py-3 rounded-full text-white font-bold text-center transition-all duration-300 transform hover:scale-105 shadow-lg">
+                                    <i class="fab fa-github mr-2"></i>
+                                    Ver no GitHub
+                                </a>
+                                <button onclick="openProjectModal('<%= index %>')" 
+                                        class="flex-1 glass-effect hover:bg-white/20 px-6 py-3 rounded-full text-white font-bold text-center transition-all duration-300 transform hover:scale-105">
+                                    <i class="fas fa-info-circle mr-2"></i>
+                                    Detalhes Técnicos
+                                </button>
+                            </div>
+
+                            <!-- Project Status -->
+                            <div class="bg-white/5 p-4 rounded-xl">
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-project-diagram text-green-400 mr-2"></i>
+                                        <span class="text-white font-semibold">Status do Projeto</span>
+                                    </div>
+                                    <span class="bg-green-500/20 text-green-300 px-3 py-1 rounded-full text-sm font-semibold">
+                                        <i class="fas fa-check-circle mr-1"></i>Concluído
+                                    </span>
+                                </div>
+                                
+                                <!-- Progress Bar -->
+                                <div class="w-full bg-white/10 rounded-full h-3 overflow-hidden">
+                                    <div class="bg-gradient-to-r from-green-400 to-green-500 h-full rounded-full w-full transition-all duration-1000 ease-out" 
+                                         style="animation: progressFill 2s ease-out <%= index * 0.5 %>s both;"></div>
+                                </div>
+                                <div class="flex justify-between text-sm text-green-200 mt-2">
+                                    <span>Desenvolvimento Finalizado</span>
+                                    <span>100% Completo</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+
+            <!-- Call to Action Section -->
+            <div class="text-center">
+                <div class="glass-effect p-12 rounded-2xl max-w-6xl mx-auto">
+                    <div class="mb-8">
+                        <i class="fas fa-rocket text-6xl text-purple-400 mb-6 floating-icon"></i>
+                    </div>
+                    
+                    <h3 class="text-4xl font-bold text-white mb-6">
+                        Interessado em Colaborar?
+                    </h3>
+                    
+                    <p class="text-xl text-pink-100 mb-8 leading-relaxed max-w-4xl mx-auto">
+                        Estou sempre buscando novos desafios e oportunidades para aplicar meus conhecimentos 
+                        em projetos inovadores. Seja para colaborações acadêmicas, projetos freelance ou 
+                        oportunidades profissionais, vamos conversar!
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <!-- Collaboration -->
+                        <div class="bg-white/5 p-6 rounded-xl hover:bg-white/10 transition-all duration-300">
+                            <i class="fas fa-handshake text-3xl text-pink-400 mb-4"></i>
+                            <h4 class="text-white font-bold text-lg mb-2">Colaborações</h4>
+                            <p class="text-pink-200 text-sm">Projetos acadêmicos e de pesquisa</p>
+                        </div>
+                        
+                        <!-- Freelance -->
+                        <div class="bg-white/5 p-6 rounded-xl hover:bg-white/10 transition-all duration-300">
+                            <i class="fas fa-laptop-code text-3xl text-purple-400 mb-4"></i>
+                            <h4 class="text-white font-bold text-lg mb-2">Freelance</h4>
+                            <p class="text-purple-200 text-sm">Desenvolvimento de soluções personalizadas</p>
+                        </div>
+                        
+                        <!-- Career -->
+                        <div class="bg-white/5 p-6 rounded-xl hover:bg-white/10 transition-all duration-300">
+                            <i class="fas fa-briefcase text-3xl text-blue-400 mb-4"></i>
+                            <h4 class="text-white font-bold text-lg mb-2">Oportunidades</h4>
+                            <p class="text-blue-200 text-sm">Estágio e posições junior/pleno</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-col md:flex-row gap-4 justify-center">
+                        <a href="/contato" 
+                           class="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 px-8 py-4 rounded-full text-white font-bold transition-all duration-300 transform hover:scale-105 shadow-lg">
+                            <i class="fas fa-envelope mr-2"></i>Vamos Conversar
+                        </a>
+                        <a href="https://github.com/kathellyn-caroline" target="_blank" 
+                           class="glass-effect hover:bg-white/20 px-8 py-4 rounded-full text-white font-bold transition-all duration-300 transform hover:scale-105">
+                            <i class="fab fa-github mr-2"></i>Ver Mais no GitHub
+                        </a>
+                        <a href="https://linkedin.com/in/kathellyn-caroline-a562101b9" target="_blank" 
+                           class="glass-effect hover:bg-white/20 px-8 py-4 rounded-full text-white font-bold transition-all duration-300 transform hover:scale-105">
+                            <i class="fab fa-linkedin mr-2"></i>Conectar no LinkedIn
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass-effect py-8 mt-16">
+        <div class="container mx-auto px-4 text-center text-white">
+            <p>&copy; 2025 Kathellyn Caroline Alves dos Santos. Todos os direitos reservados.</p>
+            <p class="text-sm text-pink-200 mt-2">
+                Desenvolvido com <i class="fas fa-heart text-red-400"></i> usando Node.js, Express e EJS
+            </p>
+        </div>
+    </footer>
+
+    <!-- Project Modal -->
+    <div id="projectModal" class="fixed inset-0 bg-black/50 hidden z-50 flex items-center justify-center p-4 modal">
+        <div class="glass-effect max-w-4xl w-full max-h-[90vh] rounded-2xl overflow-hidden">
+            <!-- Modal Header -->
+            <div class="flex justify-between items-center p-6 border-b border-white/10">
+                <h3 id="modalTitle" class="text-3xl font-bold text-white"></h3>
+                <button onclick="closeProjectModal()" 
+                        class="text-white hover:text-pink-300 text-2xl p-2 hover:bg-white/10 rounded-full transition-all duration-300">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <!-- Modal Content -->
+            <div id="modalContent" class="p-6 overflow-y-auto max-h-96">
+                <!-- Content populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Projects data for modal
+        const projectsData = <%- JSON.stringify(projetos) %>;
+        
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+        
+        // Project modal functions
+        function openProjectModal(index) {
+            const project = projectsData[index];
+            const modal = document.getElementById('projectModal');
+            const title = document.getElementById('modalTitle');
+            const content = document.getElementById('modalContent');
+            
+            title.textContent = project.titulo;
+            
+            content.innerHTML = `
+                <div class="space-y-6">
+                    <!-- Project Overview -->
+                    <div class="bg-white/5 p-6 rounded-xl">
+                        <h4 class="text-white font-bold text-xl mb-4 flex items-center">
+                            <i class="fas fa-info-circle mr-2 text-blue-400"></i>
+                            Visão Geral do Projeto
+                        </h4>
+                        <p class="text-pink-100 leading-relaxed text-lg">${project.descricao}</p>
+                    </div>
+
+                    <!-- Technical Stack -->
+                    <div class="bg-white/5 p-6 rounded-xl">
+                        <h4 class="text-white font-bold text-xl mb-4 flex items-center">
+                            <i class="fas fa-cogs mr-2 text-purple-400"></i>
+                            Stack Tecnológico
+                        </h4>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            ${project.tecnologias.map(tech => `
+                                <div class="bg-white/10 p-3 rounded-lg text-center hover:bg-white/20 transition-all duration-300">
+                                    <span class="text-white font-semibold">${tech}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <!-- Project Links -->
+                    <div class="bg-white/5 p-6 rounded-xl">
+                        <h4 class="text-white font-bold text-xl mb-4 flex items-center">
+                            <i class="fas fa-link mr-2 text-green-400"></i>
+                            Links do Projeto
+                        </h4>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <a href="${project.link}" target="_blank" 
+                               class="flex-1 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 px-6 py-4 rounded-xl text-white font-bold text-center transition-all duration-300 transform hover:scale-105">
+                                <i class="fab fa-github mr-2"></i>Repositório GitHub
+                            </a>
+                            <button class="flex-1 glass-effect hover:bg-white/20 px-6 py-4 rounded-xl text-white font-bold text-center transition-all duration-300">
+                                <i class="fas fa-external-link-alt mr-2"></i>Demo (Em Breve)
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Project Status -->
+                    <div class="bg-gradient-to-r from-green-500/10 to-green-600/10 p-6 rounded-xl border border-green-400/20">
+                        <div class="flex items-center justify-center mb-4">
+                            <i class="fas fa-check-circle text-green-400 text-3xl mr-3"></i>
+                            <span class="text-white font-bold text-xl">Projeto Concluído com Sucesso</span>
+                        </div>
+                        <p class="text-green-200 text-center">
+                            Desenvolvimento finalizado • Objetivos alcançados • Pronto para demonstração
+                        </p>
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeProjectModal() {
+            const modal = document.getElementById('projectModal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Close modal when clicking outside
+        document.getElementById('projectModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeProjectModal();
+            }
+        });
+
+        // Progress bar animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes progressFill {
+                from { width: 0%; }
+                to { width: 100%; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                    
+                    // Animate feature list items
+                    const featureItems = entry.target.querySelectorAll('.feature-list li');
+                    featureItems.forEach((item, index) => {
+                        setTimeout(() => {
+                            item.style.animation = `slideInLeft 0.5s ease-out ${index * 0.1}s forwards`;
+                        }, 200);
+                    });
+                }
+            });
+        }, observerOptions);
+
+        // Observe project cards
+        document.querySelectorAll('.project-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Enhanced hover effects for tech tags
+        document.querySelectorAll('.tech-tag').forEach(tag => {
+            tag.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.1) rotate(2deg)';
+            });
+            
+            tag.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1) rotate(0deg)';
+            });
+        });
+
+        // Keyboard navigation for modal
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeProjectModal();
+            }
+        });
+    </script>
+</body>
+</html>
