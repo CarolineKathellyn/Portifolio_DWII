@@ -1,7 +1,20 @@
 const express = require('express');
 const path = require('path');
+const cors = require('cors');
 
 const app = express();
+
+// Configuração de CORS
+app.use(cors({
+    origin: '*', // Permite todas as origens - ajuste conforme necessário
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
+}));
+
+// Middleware para JSON
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Configuração do EJS
 app.set('view engine', 'ejs');
