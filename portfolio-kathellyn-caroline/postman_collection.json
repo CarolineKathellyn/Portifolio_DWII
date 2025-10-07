@@ -1,0 +1,505 @@
+{
+  "info": {
+    "_postman_id": "12345678-1234-1234-1234-123456789abc",
+    "name": "Portfolio API - Kathellyn Caroline",
+    "description": "Collection completa para testar todas as rotas da API REST do portfólio",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Disciplinas",
+      "item": [
+        {
+          "name": "GET - Listar todas as disciplinas",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/disciplinas",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "disciplinas"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Buscar disciplina por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/disciplinas/0",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "disciplinas", "0"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST - Adicionar nova disciplina",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Inteligência Artificial\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/disciplinas",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "disciplinas"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT - Atualizar disciplina",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Design Digital Avançado\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/disciplinas/0",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "disciplinas", "0"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE - Remover disciplina",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/disciplinas/0",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "disciplinas", "0"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Projetos",
+      "item": [
+        {
+          "name": "GET - Listar todos os projetos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/projetos",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "projetos"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Buscar projeto por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/projetos/0",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "projetos", "0"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST - Adicionar novo projeto",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"titulo\": \"Sistema de Gestão Escolar\",\n  \"descricao\": \"Sistema completo para gerenciamento de escolas com matrícula online, controle de notas e frequência\",\n  \"tecnologias\": [\"React\", \"Node.js\", \"PostgreSQL\", \"TypeScript\"],\n  \"link\": \"https://github.com/usuario/gestao-escolar\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/projetos",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "projetos"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT - Atualizar projeto",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"titulo\": \"Sistema Gerenciador de Estoque - ProStock 2.0\",\n  \"descricao\": \"Versão atualizada com novas funcionalidades de IA e automação\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/projetos/0",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "projetos", "0"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE - Remover projeto",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/projetos/0",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "projetos", "0"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Tecnologias",
+      "item": [
+        {
+          "name": "GET - Listar todas as tecnologias",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/tecnologias",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "tecnologias"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Buscar tecnologia por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/tecnologias/0",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "tecnologias", "0"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST - Adicionar nova tecnologia",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Docker\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/tecnologias",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "tecnologias"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT - Atualizar tecnologia",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Kubernetes\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/tecnologias/0",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "tecnologias", "0"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE - Remover tecnologia",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/tecnologias/0",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "tecnologias", "0"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Informações Gerais",
+      "item": [
+        {
+          "name": "GET - Estatísticas",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/estatisticas",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "estatisticas"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Informações do estudante",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/estudante",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "estudante"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT - Atualizar estudante",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Kathellyn Caroline Alves dos Santos\",\n  \"anoIngresso\": 2024\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/estudante",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "estudante"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Informações de contato",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/contato",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "contato"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT - Atualizar contato",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"kathellyn.carolineas@gmail.com\",\n  \"telefone\": \"12988054039\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/contato",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "contato"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Testes de Validação",
+      "item": [
+        {
+          "name": "POST - Disciplina sem nome (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/disciplinas",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "disciplinas"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST - Disciplina duplicada (409)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Design Digital\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/disciplinas",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "disciplinas"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Disciplina inexistente (404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/disciplinas/999",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "disciplinas", "999"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST - Projeto sem dados obrigatórios (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"titulo\": \"Projeto Teste\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/projetos",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "projetos"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

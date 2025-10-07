@@ -11,6 +11,10 @@ app.set('views', path.join(__dirname, 'views'));
 // Middleware para arquivos estáticos
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Middleware para parsing de JSON e URL-encoded
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 // Favicon handler - evita erro 404
 app.get('/favicon.ico', (req, res) => res.status(204).end());
 
@@ -128,12 +132,427 @@ app.get('/contato', (req, res) => {
 });
 
 app.get('/dashboard', (req, res) => {
-    res.render('dashboard', { 
+    res.render('dashboard', {
         estatisticas: estatisticas,
         disciplinas: disciplinas,
         projetos: projetos,
         tecnologias: tecnologias,
         titulo: 'Dashboard - Portfólio Kathellyn Caroline'
+    });
+});
+
+// ============================================================
+// ROTAS DA API REST - DISCIPLINAS
+// ============================================================
+
+// GET - Listar todas as disciplinas
+app.get('/api/disciplinas', (req, res) => {
+    res.json({
+        success: true,
+        total: disciplinas.length,
+        data: disciplinas
+    });
+});
+
+// GET - Buscar disciplina específica por índice
+app.get('/api/disciplinas/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+
+    if (id < 0 || id >= disciplinas.length) {
+        return res.status(404).json({
+            success: false,
+            message: 'Disciplina não encontrada'
+        });
+    }
+
+    res.json({
+        success: true,
+        data: disciplinas[id]
+    });
+});
+
+// POST - Adicionar nova disciplina
+app.post('/api/disciplinas', (req, res) => {
+    const { nome } = req.body;
+
+    if (!nome || nome.trim() === '') {
+        return res.status(400).json({
+            success: false,
+            message: 'Nome da disciplina é obrigatório'
+        });
+    }
+
+    // Verifica se já existe
+    if (disciplinas.includes(nome)) {
+        return res.status(409).json({
+            success: false,
+            message: 'Disciplina já cadastrada'
+        });
+    }
+
+    disciplinas.push(nome);
+
+    res.status(201).json({
+        success: true,
+        message: 'Disciplina adicionada com sucesso',
+        data: {
+            id: disciplinas.length - 1,
+            nome: nome
+        }
+    });
+});
+
+// PUT - Atualizar disciplina existente
+app.put('/api/disciplinas/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const { nome } = req.body;
+
+    if (id < 0 || id >= disciplinas.length) {
+        return res.status(404).json({
+            success: false,
+            message: 'Disciplina não encontrada'
+        });
+    }
+
+    if (!nome || nome.trim() === '') {
+        return res.status(400).json({
+            success: false,
+            message: 'Nome da disciplina é obrigatório'
+        });
+    }
+
+    const nomeAntigo = disciplinas[id];
+    disciplinas[id] = nome;
+
+    res.json({
+        success: true,
+        message: 'Disciplina atualizada com sucesso',
+        data: {
+            id: id,
+            nomeAntigo: nomeAntigo,
+            nomeNovo: nome
+        }
+    });
+});
+
+// DELETE - Remover disciplina
+app.delete('/api/disciplinas/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+
+    if (id < 0 || id >= disciplinas.length) {
+        return res.status(404).json({
+            success: false,
+            message: 'Disciplina não encontrada'
+        });
+    }
+
+    const disciplinaRemovida = disciplinas.splice(id, 1)[0];
+
+    res.json({
+        success: true,
+        message: 'Disciplina removida com sucesso',
+        data: disciplinaRemovida
+    });
+});
+
+// ============================================================
+// ROTAS DA API REST - PROJETOS
+// ============================================================
+
+// GET - Listar todos os projetos
+app.get('/api/projetos', (req, res) => {
+    res.json({
+        success: true,
+        total: projetos.length,
+        data: projetos
+    });
+});
+
+// GET - Buscar projeto específico por índice
+app.get('/api/projetos/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+
+    if (id < 0 || id >= projetos.length) {
+        return res.status(404).json({
+            success: false,
+            message: 'Projeto não encontrado'
+        });
+    }
+
+    res.json({
+        success: true,
+        data: projetos[id]
+    });
+});
+
+// POST - Adicionar novo projeto
+app.post('/api/projetos', (req, res) => {
+    const { titulo, descricao, tecnologias, link } = req.body;
+
+    // Validações
+    if (!titulo || titulo.trim() === '') {
+        return res.status(400).json({
+            success: false,
+            message: 'Título do projeto é obrigatório'
+        });
+    }
+
+    if (!descricao || descricao.trim() === '') {
+        return res.status(400).json({
+            success: false,
+            message: 'Descrição do projeto é obrigatória'
+        });
+    }
+
+    if (!tecnologias || !Array.isArray(tecnologias) || tecnologias.length === 0) {
+        return res.status(400).json({
+            success: false,
+            message: 'Tecnologias devem ser um array com ao menos um item'
+        });
+    }
+
+    const novoProjeto = {
+        titulo,
+        descricao,
+        tecnologias,
+        link: link || '#'
+    };
+
+    projetos.push(novoProjeto);
+
+    res.status(201).json({
+        success: true,
+        message: 'Projeto adicionado com sucesso',
+        data: {
+            id: projetos.length - 1,
+            ...novoProjeto
+        }
+    });
+});
+
+// PUT - Atualizar projeto existente
+app.put('/api/projetos/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const { titulo, descricao, tecnologias, link } = req.body;
+
+    if (id < 0 || id >= projetos.length) {
+        return res.status(404).json({
+            success: false,
+            message: 'Projeto não encontrado'
+        });
+    }
+
+    // Atualiza apenas os campos fornecidos
+    if (titulo) projetos[id].titulo = titulo;
+    if (descricao) projetos[id].descricao = descricao;
+    if (tecnologias && Array.isArray(tecnologias)) projetos[id].tecnologias = tecnologias;
+    if (link) projetos[id].link = link;
+
+    res.json({
+        success: true,
+        message: 'Projeto atualizado com sucesso',
+        data: {
+            id: id,
+            ...projetos[id]
+        }
+    });
+});
+
+// DELETE - Remover projeto
+app.delete('/api/projetos/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+
+    if (id < 0 || id >= projetos.length) {
+        return res.status(404).json({
+            success: false,
+            message: 'Projeto não encontrado'
+        });
+    }
+
+    const projetoRemovido = projetos.splice(id, 1)[0];
+
+    res.json({
+        success: true,
+        message: 'Projeto removido com sucesso',
+        data: projetoRemovido
+    });
+});
+
+// ============================================================
+// ROTAS DA API REST - TECNOLOGIAS
+// ============================================================
+
+// GET - Listar todas as tecnologias
+app.get('/api/tecnologias', (req, res) => {
+    res.json({
+        success: true,
+        total: tecnologias.length,
+        data: tecnologias
+    });
+});
+
+// GET - Buscar tecnologia específica por índice
+app.get('/api/tecnologias/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+
+    if (id < 0 || id >= tecnologias.length) {
+        return res.status(404).json({
+            success: false,
+            message: 'Tecnologia não encontrada'
+        });
+    }
+
+    res.json({
+        success: true,
+        data: tecnologias[id]
+    });
+});
+
+// POST - Adicionar nova tecnologia
+app.post('/api/tecnologias', (req, res) => {
+    const { nome } = req.body;
+
+    if (!nome || nome.trim() === '') {
+        return res.status(400).json({
+            success: false,
+            message: 'Nome da tecnologia é obrigatório'
+        });
+    }
+
+    // Verifica se já existe
+    if (tecnologias.includes(nome)) {
+        return res.status(409).json({
+            success: false,
+            message: 'Tecnologia já cadastrada'
+        });
+    }
+
+    tecnologias.push(nome);
+
+    res.status(201).json({
+        success: true,
+        message: 'Tecnologia adicionada com sucesso',
+        data: {
+            id: tecnologias.length - 1,
+            nome: nome
+        }
+    });
+});
+
+// PUT - Atualizar tecnologia existente
+app.put('/api/tecnologias/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const { nome } = req.body;
+
+    if (id < 0 || id >= tecnologias.length) {
+        return res.status(404).json({
+            success: false,
+            message: 'Tecnologia não encontrada'
+        });
+    }
+
+    if (!nome || nome.trim() === '') {
+        return res.status(400).json({
+            success: false,
+            message: 'Nome da tecnologia é obrigatório'
+        });
+    }
+
+    const nomeAntigo = tecnologias[id];
+    tecnologias[id] = nome;
+
+    res.json({
+        success: true,
+        message: 'Tecnologia atualizada com sucesso',
+        data: {
+            id: id,
+            nomeAntigo: nomeAntigo,
+            nomeNovo: nome
+        }
+    });
+});
+
+// DELETE - Remover tecnologia
+app.delete('/api/tecnologias/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+
+    if (id < 0 || id >= tecnologias.length) {
+        return res.status(404).json({
+            success: false,
+            message: 'Tecnologia não encontrada'
+        });
+    }
+
+    const tecnologiaRemovida = tecnologias.splice(id, 1)[0];
+
+    res.json({
+        success: true,
+        message: 'Tecnologia removida com sucesso',
+        data: tecnologiaRemovida
+    });
+});
+
+// ============================================================
+// ROTAS DA API REST - INFORMAÇÕES GERAIS
+// ============================================================
+
+// GET - Estatísticas gerais
+app.get('/api/estatisticas', (req, res) => {
+    res.json({
+        success: true,
+        data: {
+            totalDisciplinas: disciplinas.length,
+            totalProjetos: projetos.length,
+            totalTecnologias: tecnologias.length,
+            estudante: estudante
+        }
+    });
+});
+
+// GET - Informações do estudante
+app.get('/api/estudante', (req, res) => {
+    res.json({
+        success: true,
+        data: estudante
+    });
+});
+
+// PUT - Atualizar informações do estudante
+app.put('/api/estudante', (req, res) => {
+    const { nome, curso, instituicao, anoIngresso } = req.body;
+
+    if (nome) estudante.nome = nome;
+    if (curso) estudante.curso = curso;
+    if (instituicao) estudante.instituicao = instituicao;
+    if (anoIngresso) estudante.anoIngresso = anoIngresso;
+
+    res.json({
+        success: true,
+        message: 'Informações do estudante atualizadas com sucesso',
+        data: estudante
+    });
+});
+
+// GET - Informações de contato
+app.get('/api/contato', (req, res) => {
+    res.json({
+        success: true,
+        data: contato
+    });
+});
+
+// PUT - Atualizar informações de contato
+app.put('/api/contato', (req, res) => {
+    const { email, telefone, linkedin } = req.body;
+
+    if (email) contato.email = email;
+    if (telefone) contato.telefone = telefone;
+    if (linkedin) contato.linkedin = linkedin;
+
+    res.json({
+        success: true,
+        message: 'Informações de contato atualizadas com sucesso',
+        data: contato
     });
 });
 
