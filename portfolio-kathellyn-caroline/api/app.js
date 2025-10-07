@@ -149,4 +149,378 @@ app.get('/dashboard', (req, res) => {
     });
 });
 
+// ============================================
+// ROTAS DA API REST
+// ============================================
+
+// --- DISCIPLINAS ---
+app.get('/api/disciplinas', (req, res) => {
+    res.json({
+        success: true,
+        total: disciplinas.length,
+        data: disciplinas
+    });
+});
+
+app.get('/api/disciplinas/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    if (id >= 0 && id < disciplinas.length) {
+        res.json({
+            success: true,
+            data: disciplinas[id]
+        });
+    } else {
+        res.status(404).json({
+            success: false,
+            message: 'Disciplina não encontrada'
+        });
+    }
+});
+
+app.post('/api/disciplinas', (req, res) => {
+    const { nome } = req.body;
+
+    if (!nome || nome.trim() === '') {
+        return res.status(400).json({
+            success: false,
+            message: 'Nome da disciplina é obrigatório'
+        });
+    }
+
+    if (disciplinas.includes(nome)) {
+        return res.status(409).json({
+            success: false,
+            message: 'Disciplina já cadastrada'
+        });
+    }
+
+    disciplinas.push(nome);
+    res.status(201).json({
+        success: true,
+        message: 'Disciplina adicionada com sucesso',
+        data: {
+            id: disciplinas.length - 1,
+            nome: nome
+        }
+    });
+});
+
+app.put('/api/disciplinas/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const { nome } = req.body;
+
+    if (!nome || nome.trim() === '') {
+        return res.status(400).json({
+            success: false,
+            message: 'Nome da disciplina é obrigatório'
+        });
+    }
+
+    if (id >= 0 && id < disciplinas.length) {
+        const nomeAntigo = disciplinas[id];
+        disciplinas[id] = nome;
+        res.json({
+            success: true,
+            message: 'Disciplina atualizada com sucesso',
+            data: {
+                id: id,
+                nomeAntigo: nomeAntigo,
+                nomeNovo: nome
+            }
+        });
+    } else {
+        res.status(404).json({
+            success: false,
+            message: 'Disciplina não encontrada'
+        });
+    }
+});
+
+app.delete('/api/disciplinas/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+
+    if (id >= 0 && id < disciplinas.length) {
+        const removida = disciplinas.splice(id, 1)[0];
+        res.json({
+            success: true,
+            message: 'Disciplina removida com sucesso',
+            data: removida
+        });
+    } else {
+        res.status(404).json({
+            success: false,
+            message: 'Disciplina não encontrada'
+        });
+    }
+});
+
+// --- PROJETOS ---
+app.get('/api/projetos', (req, res) => {
+    res.json({
+        success: true,
+        total: projetos.length,
+        data: projetos
+    });
+});
+
+app.get('/api/projetos/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    if (id >= 0 && id < projetos.length) {
+        res.json({
+            success: true,
+            data: projetos[id]
+        });
+    } else {
+        res.status(404).json({
+            success: false,
+            message: 'Projeto não encontrado'
+        });
+    }
+});
+
+app.post('/api/projetos', (req, res) => {
+    const { titulo, descricao, tecnologias, link } = req.body;
+
+    if (!titulo || titulo.trim() === '') {
+        return res.status(400).json({
+            success: false,
+            message: 'Título do projeto é obrigatório'
+        });
+    }
+
+    if (!descricao || descricao.trim() === '') {
+        return res.status(400).json({
+            success: false,
+            message: 'Descrição do projeto é obrigatória'
+        });
+    }
+
+    if (!tecnologias || !Array.isArray(tecnologias) || tecnologias.length === 0) {
+        return res.status(400).json({
+            success: false,
+            message: 'Tecnologias são obrigatórias'
+        });
+    }
+
+    const novoProjeto = {
+        titulo,
+        descricao,
+        tecnologias,
+        link: link || ''
+    };
+
+    projetos.push(novoProjeto);
+    res.status(201).json({
+        success: true,
+        message: 'Projeto adicionado com sucesso',
+        data: {
+            id: projetos.length - 1,
+            ...novoProjeto
+        }
+    });
+});
+
+app.put('/api/projetos/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const { titulo, descricao, tecnologias, link } = req.body;
+
+    if (id >= 0 && id < projetos.length) {
+        if (titulo) projetos[id].titulo = titulo;
+        if (descricao) projetos[id].descricao = descricao;
+        if (tecnologias) projetos[id].tecnologias = tecnologias;
+        if (link !== undefined) projetos[id].link = link;
+
+        res.json({
+            success: true,
+            message: 'Projeto atualizado com sucesso',
+            data: {
+                id: id,
+                ...projetos[id]
+            }
+        });
+    } else {
+        res.status(404).json({
+            success: false,
+            message: 'Projeto não encontrado'
+        });
+    }
+});
+
+app.delete('/api/projetos/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+
+    if (id >= 0 && id < projetos.length) {
+        const removido = projetos.splice(id, 1)[0];
+        res.json({
+            success: true,
+            message: 'Projeto removido com sucesso',
+            data: removido
+        });
+    } else {
+        res.status(404).json({
+            success: false,
+            message: 'Projeto não encontrado'
+        });
+    }
+});
+
+// --- TECNOLOGIAS ---
+app.get('/api/tecnologias', (req, res) => {
+    res.json({
+        success: true,
+        total: tecnologias.length,
+        data: tecnologias
+    });
+});
+
+app.get('/api/tecnologias/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    if (id >= 0 && id < tecnologias.length) {
+        res.json({
+            success: true,
+            data: tecnologias[id]
+        });
+    } else {
+        res.status(404).json({
+            success: false,
+            message: 'Tecnologia não encontrada'
+        });
+    }
+});
+
+app.post('/api/tecnologias', (req, res) => {
+    const { nome } = req.body;
+
+    if (!nome || nome.trim() === '') {
+        return res.status(400).json({
+            success: false,
+            message: 'Nome da tecnologia é obrigatório'
+        });
+    }
+
+    if (tecnologias.includes(nome)) {
+        return res.status(409).json({
+            success: false,
+            message: 'Tecnologia já cadastrada'
+        });
+    }
+
+    tecnologias.push(nome);
+    res.status(201).json({
+        success: true,
+        message: 'Tecnologia adicionada com sucesso',
+        data: {
+            id: tecnologias.length - 1,
+            nome: nome
+        }
+    });
+});
+
+app.put('/api/tecnologias/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const { nome } = req.body;
+
+    if (!nome || nome.trim() === '') {
+        return res.status(400).json({
+            success: false,
+            message: 'Nome da tecnologia é obrigatório'
+        });
+    }
+
+    if (id >= 0 && id < tecnologias.length) {
+        const nomeAntigo = tecnologias[id];
+        tecnologias[id] = nome;
+        res.json({
+            success: true,
+            message: 'Tecnologia atualizada com sucesso',
+            data: {
+                id: id,
+                nomeAntigo: nomeAntigo,
+                nomeNovo: nome
+            }
+        });
+    } else {
+        res.status(404).json({
+            success: false,
+            message: 'Tecnologia não encontrada'
+        });
+    }
+});
+
+app.delete('/api/tecnologias/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+
+    if (id >= 0 && id < tecnologias.length) {
+        const removida = tecnologias.splice(id, 1)[0];
+        res.json({
+            success: true,
+            message: 'Tecnologia removida com sucesso',
+            data: removida
+        });
+    } else {
+        res.status(404).json({
+            success: false,
+            message: 'Tecnologia não encontrada'
+        });
+    }
+});
+
+// --- ESTATÍSTICAS ---
+app.get('/api/estatisticas', (req, res) => {
+    res.json({
+        success: true,
+        data: {
+            totalDisciplinas: disciplinas.length,
+            totalProjetos: projetos.length,
+            totalTecnologias: tecnologias.length,
+            estudante: estudante
+        }
+    });
+});
+
+// --- ESTUDANTE ---
+app.get('/api/estudante', (req, res) => {
+    res.json({
+        success: true,
+        data: estudante
+    });
+});
+
+app.put('/api/estudante', (req, res) => {
+    const { nome, curso, instituicao, anoIngresso } = req.body;
+
+    if (nome) estudante.nome = nome;
+    if (curso) estudante.curso = curso;
+    if (instituicao) estudante.instituicao = instituicao;
+    if (anoIngresso) estudante.anoIngresso = anoIngresso;
+
+    res.json({
+        success: true,
+        message: 'Informações do estudante atualizadas com sucesso',
+        data: estudante
+    });
+});
+
+// --- CONTATO ---
+app.get('/api/contato', (req, res) => {
+    res.json({
+        success: true,
+        data: contato
+    });
+});
+
+app.put('/api/contato', (req, res) => {
+    const { email, telefone, linkedin } = req.body;
+
+    if (email) contato.email = email;
+    if (telefone) contato.telefone = telefone;
+    if (linkedin) contato.linkedin = linkedin;
+
+    res.json({
+        success: true,
+        message: 'Informações de contato atualizadas com sucesso',
+        data: contato
+    });
+});
+
 module.exports = app;
