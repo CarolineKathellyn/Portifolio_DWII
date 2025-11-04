@@ -7,7 +7,11 @@
     "start": "node app.js",
     "dev": "nodemon app.js",
     "build": "echo 'Build completed'",
-    "vercel-build": "echo vercel-build"
+    "vercel-build": "echo vercel-build",
+    "db:sync": "node scripts/db-sync.js",
+    "db:seed": "node seeders/seed.js",
+    "db:reset": "node scripts/db-reset.js",
+    "db:setup": "npm run db:sync && npm run db:seed"
   },
   "keywords": [
     "portfolio",
@@ -25,8 +29,11 @@
   "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
     "ejs": "^3.1.10",
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "mysql2": "^3.15.3",
+    "sequelize": "^6.37.7"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
